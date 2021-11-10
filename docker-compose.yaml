@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   spring_bluebank:
     build:
@@ -6,21 +6,27 @@ services:
       dockerfile: ./Dockerfile
     image: bluebank_spring/api
     ports:
-      - '8080:8080'
-      - '5005:5005'
+      - "8080:8080"
+      - "5005:5005"
     environment:
-      - ADDITIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
-      - PROFILE=dev
+      - ADDITIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n -Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
+      - PROFILE=docker
+    depends_on:
+      db:
+        condition: service_healthy
     links:
       - db
   db:
     image: mysql
     ports:
-      - '3306:3306'
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_HOST=%
       - MYSQL_DATABASE=blue_bank
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     volumes:
       - ./.docker/volume_mysql:/var/lib/mysql
-
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
