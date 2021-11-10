@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:17
 
 ARG PROFILE
 ARG ADDITIONAL_OPTS
