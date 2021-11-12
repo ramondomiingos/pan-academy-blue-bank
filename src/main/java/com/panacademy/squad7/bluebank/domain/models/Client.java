@@ -38,8 +38,7 @@ public class Client {
     @Column(nullable = false, unique = true)
     private String registration;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id")
+    @OneToOne(mappedBy = "client")
     private Address address;
 
     @Column(nullable = false)

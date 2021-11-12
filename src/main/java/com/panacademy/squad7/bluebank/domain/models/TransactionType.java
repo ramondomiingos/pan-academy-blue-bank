@@ -25,6 +25,7 @@ public class TransactionType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "type_id")
     private Integer id;
 
     @Column(nullable = false)

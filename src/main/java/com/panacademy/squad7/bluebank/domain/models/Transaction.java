@@ -35,7 +35,7 @@ public class Transaction {
     private BigDecimal amount;
 
     @ManyToOne
-    @JoinColumn(name = "type")
+    @JoinColumn(name = "type_id")
     private TransactionType type;
 
     @Column(nullable = false, name = "created_at")
