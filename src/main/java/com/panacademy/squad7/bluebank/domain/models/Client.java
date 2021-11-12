@@ -43,6 +43,7 @@ public class Client {
     private Address address;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ClientType type;
 
     public String getType() {
