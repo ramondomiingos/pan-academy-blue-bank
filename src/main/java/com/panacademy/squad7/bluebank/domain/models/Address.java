@@ -28,5 +28,6 @@ public class Address {
     @Column(nullable = false, length = 2)
     private String state;
 
-
+    @OneToMany(mappedBy = "address")
+    private List<Client> clients;
 }
