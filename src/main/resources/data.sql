@@ -66,3 +66,6 @@ ALTER TABLE `transactions` ADD FOREIGN KEY (`type`) REFERENCES `transaction_type
 ALTER TABLE `users` ADD FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`);
 
 INSERT IGNORE INTO `users` (`user_id`, `username`, `password`, `role`) values (1, 'admin', '$2a$10$hlUaPFEckFJCWKH9rLnuMuhldK3PVisBFJHmZ7H88hKCOpYlm7UIa', 'A');
+
+-- V1 MIGRATION FOR CHANGE CONSTRAINT
+ALTER TABLE `clients` CHANGE `address_id` `address_id` int;
