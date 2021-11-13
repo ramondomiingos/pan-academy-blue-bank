@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "clients")
@@ -38,8 +39,8 @@ public class Client {
     @Column(nullable = false, unique = true)
     private String registration;
 
-    @OneToOne(mappedBy = "client")
-    private Address address;
+    @OneToMany(mappedBy = "clientId")
+    private List<Account> accounts;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
