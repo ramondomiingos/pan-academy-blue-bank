@@ -2,7 +2,8 @@ package com.panacademy.squad7.bluebank.services;
 
 import com.panacademy.squad7.bluebank.domain.models.Address;
 import com.panacademy.squad7.bluebank.domain.repositories.AddressesRepository;
-import com.panacademy.squad7.bluebank.exceptions.AddressNotFoundException;
+import com.panacademy.squad7.bluebank.exceptions.ContentNotFoundException;
+
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -22,24 +23,25 @@ public class AddressesServiceImpl implements AddressesService {
 
     @Override
     public Address update(Address address, Long id) {
-
         return addressesRepository.findById(id).map(a -> {
             address.setId(id);
             return addressesRepository.save(address);
-        }).orElseThrow(() -> new AddressNotFoundException(id));
+        }).orElseThrow(() -> new ContentNotFoundException("address not found with id " + id));
     }
 
     @Override
     public void delete(Long id) {
         if (addressesRepository.existsById(id)) {
             addressesRepository.deleteById(id);
+        } else {
+            throw new ContentNotFoundException("address not found with id " + id);
         }
-        throw new AddressNotFoundException(id);
     }
 
     @Override
     public Address findById(Long id) {
-        return addressesRepository.findById(id).orElseThrow(() -> new AddressNotFoundException(id));
+        return addressesRepository.findById(id)
+                .orElseThrow(() -> new ContentNotFoundException("address not found with id " + id));
     }
 
     @Override
