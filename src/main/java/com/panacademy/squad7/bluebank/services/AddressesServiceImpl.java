@@ -21,26 +21,24 @@ public class AddressesServiceImpl implements AddressesService {
     }
 
     @Override
-    public Address update(Address address, Integer id) {
+    public Address update(Address address, Long id) {
 
-        return addressesRepository.findById(id)
-                .map(a -> {
-                    address.setId(id);
-                    return addressesRepository.save(address);
-                })
-                .orElseThrow(() -> new AddressNotFoundException(id));
+        return addressesRepository.findById(id).map(a -> {
+            address.setId(id);
+            return addressesRepository.save(address);
+        }).orElseThrow(() -> new AddressNotFoundException(id));
     }
 
     @Override
-    public void delete(Integer id) {
-        if(addressesRepository.existsById(id)){
+    public void delete(Long id) {
+        if (addressesRepository.existsById(id)) {
             addressesRepository.deleteById(id);
         }
         throw new AddressNotFoundException(id);
     }
 
     @Override
-    public Address findById(Integer id) {
+    public Address findById(Long id) {
         return addressesRepository.findById(id).orElseThrow(() -> new AddressNotFoundException(id));
     }
 
@@ -49,4 +47,3 @@ public class AddressesServiceImpl implements AddressesService {
         return addressesRepository.findAll();
     }
 }
-
