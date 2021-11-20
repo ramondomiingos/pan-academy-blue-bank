@@ -26,8 +26,9 @@ public class ClientsServiceImpl implements ClientsService {
     
     @Override
     public Client update(Client client, Long id) {
-        return clientsRepository.findById(id).map(a -> {
+        return clientsRepository.findById(id).map(c -> {
             client.setId(id);
+            client.setRegistration(c.getRegistration());
             return clientsRepository.save(client);
         }).orElseThrow(() -> new ContentNotFoundException("client not found with id " + id));
     }
