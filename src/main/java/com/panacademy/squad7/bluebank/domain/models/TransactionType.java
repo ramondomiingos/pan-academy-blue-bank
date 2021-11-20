@@ -35,10 +35,5 @@ public class TransactionType {
     private String name;
 
     @OneToMany(mappedBy = "type")
-    private List<Transaction> transactions;
-
-    public String getType() {
-        return type.getDescription();
-    }
-
+    private List<Transaction> transactions;    
 }

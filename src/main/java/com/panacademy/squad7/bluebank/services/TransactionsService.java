@@ -8,8 +8,6 @@ public interface TransactionsService {
 
 	Transaction create(Transaction transaction);
 	
-	Transaction update(Transaction transaction, Long id);
-	
 	Transaction findById(Long id);
 	
 	List<Transaction> findAll();

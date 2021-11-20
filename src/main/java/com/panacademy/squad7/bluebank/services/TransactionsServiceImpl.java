@@ -23,14 +23,6 @@ public class TransactionsServiceImpl implements TransactionsService {
 	}
 	
 	@Override
-	public Transaction update(Transaction transaction, Long id) {
-		return transactionsRepository.findById(id).map(a -> {
-			transaction.setId(id);
-			return transactionsRepository.save(transaction);
-		}).orElseThrow(() -> new ContentNotFoundException("transaction not found with id" + id));
-	}
-	
-	@Override
 	public Transaction findById(Long id) {
 		return transactionsRepository.findById(id)
 				.orElseThrow(() -> new ContentNotFoundException("transaction not found with id" + id));

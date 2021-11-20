@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.panacademy.squad7.bluebank.domain.enums.TransactionTypes;
 import com.panacademy.squad7.bluebank.domain.models.Address;
 import com.panacademy.squad7.bluebank.domain.models.TransactionType;
 import com.panacademy.squad7.bluebank.domain.repositories.AddressesRepository;
@@ -26,17 +27,18 @@ public class TransactionsTypesServiceImpl implements TransactionsTypesService {
 
     @Override
     public TransactionType update(TransactionType transactionType, Integer id) {
-        return transactionsTypesRepository.findById(id).map(a -> {
+        return transactionsTypesRepository.findById(id).map(t -> {
             transactionType.setId(id);
+            transactionType.setType(t.getType());
             return transactionsTypesRepository.save(transactionType);
-        }).orElseThrow(() -> new ContentNotFoundException("address not found with id " + id));
+        }).orElseThrow(() -> new ContentNotFoundException("transaction type not found with id " + id));
     }
 
     
     @Override
     public TransactionType findById(Integer id) {
         return transactionsTypesRepository.findById(id)
-                .orElseThrow(() -> new ContentNotFoundException("address not found with id " + id));
+                .orElseThrow(() -> new ContentNotFoundException("transaction type not found with id " + id));
     }
 
     @Override
