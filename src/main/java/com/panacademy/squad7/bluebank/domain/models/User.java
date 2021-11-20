@@ -24,21 +24,21 @@ public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    private Long id;
 
-    @Column(nullable = false)
-    private String username;
+    @Column(nullable = false, unique = true)
+    private String username ;
 
     @Column(nullable = false)
     private String password;
 
-    @OneToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private RoleType role;
+
+    @OneToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     public String getRole() {
         return role.getDescription();
