@@ -1,4 +1,4 @@
-package com.panacademy.squad7.bluebank.shared.conversors;
+package com.panacademy.squad7.bluebank.shared.converters;
 
 import com.panacademy.squad7.bluebank.domain.models.Address;
 import com.panacademy.squad7.bluebank.domain.models.Client;
@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class AddressesConversor {
+public class AddressConverter {
 
-    public List<AddressResponse> toAddressesResponse(List<Address> Addresses) {
-        return Addresses.stream().map(this::toAddressResponse).collect(Collectors.toList());
+    public List<AddressResponse> toListOfResponse(List<Address> Addresses) {
+        return Addresses.stream().map(this::toResponse).collect(Collectors.toList());
     }
 
-    public AddressResponse toAddressResponse (Address address) {
+    public AddressResponse toResponse(Address address) {
         return AddressResponse.builder()
                 .id(address.getId())
                 .address(address.getAddress())
@@ -26,7 +26,7 @@ public class AddressesConversor {
                 .build();
     }
 
-    public Address toAddressModel(AddressRequest addressRequest) {
+    public Address toModel(AddressRequest addressRequest) {
         Address address = Address.builder()
                 .address(addressRequest.getAddress())
                 .addressNumber(addressRequest.getNumber())
