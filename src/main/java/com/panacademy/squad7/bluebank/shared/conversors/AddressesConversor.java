@@ -20,7 +20,7 @@ public class AddressesConversor {
         return AddressResponse.builder()
                 .id(address.getId())
                 .address(address.getAddress())
-                .number(address.getNumber())
+                .number(address.getAddressNumber())
                 .city(address.getCity())
                 .state(address.getState())
                 .build();
@@ -29,7 +29,7 @@ public class AddressesConversor {
     public Address toAddressModel(AddressRequest addressRequest) {
         Address address = Address.builder()
                 .address(addressRequest.getAddress())
-                .number(addressRequest.getNumber())
+                .addressNumber(addressRequest.getNumber())
                 .city(addressRequest.getCity())
                 .state(addressRequest.getState())
                 .build();

@@ -18,6 +18,7 @@ import com.panacademy.squad7.bluebank.domain.enums.ClientType;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -25,6 +26,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 public class Client {
     @Id
     @Column(name = "client_id")
