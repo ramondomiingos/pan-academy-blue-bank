@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import com.panacademy.squad7.bluebank.domain.enums.ClientType;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Client {
     @Id
     @Column(name = "client_id")
