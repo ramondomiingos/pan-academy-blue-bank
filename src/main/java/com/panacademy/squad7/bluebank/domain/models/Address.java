@@ -9,13 +9,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "addresses")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
 public class Address {
     @Id
     @Column(name = "address_id")
