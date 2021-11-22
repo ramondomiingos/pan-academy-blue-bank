@@ -1,6 +1,11 @@
 package com.panacademy.squad7.bluebank.domain.models;
 
-import java.util.List;
+import com.panacademy.squad7.bluebank.domain.enums.TransactionTypes;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,16 +16,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.panacademy.squad7.bluebank.domain.enums.TransactionTypes;
-
-import lombok.Getter;
-import lombok.Setter;
+import java.util.List;
 
 @Entity
 @Table(name = "transaction_type")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransactionType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

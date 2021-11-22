@@ -2,6 +2,8 @@ package com.panacademy.squad7.bluebank.web.dtos.response;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.panacademy.squad7.bluebank.domain.enums.ClientType;
 import com.panacademy.squad7.bluebank.domain.models.Account;
 
 import lombok.Builder;
@@ -27,11 +29,12 @@ public class ClientResponse {
 
     private String cellphone;
 
-    private String type;
+    private ClientType type;
 
     private Long addressId;
     	
     private Long userId;
 
     private List<Account> accounts;
+
 }

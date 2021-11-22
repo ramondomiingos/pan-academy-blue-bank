@@ -19,7 +19,7 @@ public class ClientsConversor {
 	}
 
 	public ClientResponse toClientResponse(Client client) {
-		ClientResponse cr = ClientResponse.builder()
+		ClientResponse clientResponse = ClientResponse.builder()
 				.id(client.getId())
 				.name(client.getName())
 				.lastname(client.getLastname())
@@ -33,14 +33,14 @@ public class ClientsConversor {
 				.build();
 		
 		if (client.getAddress() != null) {
-			cr.setAddressId(client.getAddress().getId());
+			clientResponse.setAddressId(client.getAddress().getId());
 		}
 		
 		if (client.getUser() != null) {
-			cr.setUserId(client.getUser().getId());
+			clientResponse.setUserId(client.getUser().getId());
 		}
 		
-		return cr;
+		return clientResponse;
 	}
 
 	public Client toClientModel(ClientRequest clientRequest) {
@@ -55,19 +55,6 @@ public class ClientsConversor {
 		.type(clientRequest.getType())
 		.registration(clientRequest.getRegistration())
 		.build();
-		
-		
-		if(clientRequest.getAddressId() != null) {
-			Address address = new Address();
-			address.setId(clientRequest.getAddressId());
-			client.setAddress(address);
-		}
-		
-		if(clientRequest.getUserId() != null) {
-			User user = new User();
-			user.setId(clientRequest.getUserId());
-			client.setUser(user);
-		}
 		
 		return client;
 	}

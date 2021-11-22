@@ -70,8 +70,4 @@ public class Client {
     @OneToMany(mappedBy = "client")
     private List<Account> accounts;
 
-    public String getType() {
-        return type.getDescription();
-    }
-
 }

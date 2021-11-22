@@ -1,5 +1,12 @@
 package com.panacademy.squad7.bluebank.domain.models;
 
+import com.panacademy.squad7.bluebank.domain.enums.RoleType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,15 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.panacademy.squad7.bluebank.domain.enums.RoleType;
-
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @Column(name = "user_id")
@@ -39,9 +44,5 @@ public class User {
     @OneToOne
     @JoinColumn(name = "client_id")
     private Client client;
-
-    public String getRole() {
-        return role.getDescription();
-    }
 
 }

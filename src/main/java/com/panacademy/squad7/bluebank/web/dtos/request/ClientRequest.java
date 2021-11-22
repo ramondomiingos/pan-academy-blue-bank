@@ -28,8 +28,4 @@ public class ClientRequest {
     
     private String registration;
 
-    private Long addressId;
-    	
-    private Long userId;
-
 }
