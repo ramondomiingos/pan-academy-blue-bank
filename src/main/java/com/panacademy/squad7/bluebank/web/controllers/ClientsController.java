@@ -2,6 +2,11 @@ package com.panacademy.squad7.bluebank.web.controllers;
 
 import java.util.List;
 
+import com.panacademy.squad7.bluebank.domain.enums.RoleType;
+import com.panacademy.squad7.bluebank.domain.models.Client;
+import com.panacademy.squad7.bluebank.domain.models.User;
+import com.panacademy.squad7.bluebank.services.UsersService;
+import com.panacademy.squad7.bluebank.shared.converters.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +32,24 @@ public class ClientsController {
     private ClientsService clientsService;
 
     @Autowired
+    private UsersService usersService;
+
+    @Autowired
     private ClientConverter clientConverter;
 
+    @Autowired
+    private UserConverter userConverter;
+
     @PostMapping
-    public ResponseEntity<ClientResponse> create(@RequestBody ClientRequest client) {
+    public ResponseEntity<ClientResponse> create(@RequestBody ClientRequest clientRequest) {
+        Client client = clientsService.create(clientConverter.toModel(clientRequest));
+        User user = userConverter.toModel(clientRequest);
+        user.setClient(client);
+        user = usersService.create(user);
+        client.setUser(user);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(clientConverter.toResponse(clientsService.create(clientConverter.toModel(client))));
+                .body(clientConverter.toResponse(client));
     }
 
     @GetMapping
