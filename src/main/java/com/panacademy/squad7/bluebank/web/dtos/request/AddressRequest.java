@@ -3,6 +3,7 @@ package com.panacademy.squad7.bluebank.web.dtos.request;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
@@ -21,7 +22,7 @@ public class AddressRequest {
     @Size(min = 2, max = 2, message = "state must be 2 characters")
     private String state;
 
-    @NotBlank(message = "clientId must not be blank")
+    @NotNull(message = "clientId must not be null")
     private Long clientId;
 
 }

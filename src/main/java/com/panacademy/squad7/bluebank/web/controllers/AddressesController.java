@@ -1,6 +1,8 @@
 package com.panacademy.squad7.bluebank.web.controllers;
 
+import com.panacademy.squad7.bluebank.domain.models.Address;
 import com.panacademy.squad7.bluebank.services.AddressesService;
+import com.panacademy.squad7.bluebank.services.ClientsService;
 import com.panacademy.squad7.bluebank.shared.converters.AddressConverter;
 import com.panacademy.squad7.bluebank.web.dtos.request.AddressRequest;
 import com.panacademy.squad7.bluebank.web.dtos.response.AddressResponse;
@@ -14,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -27,6 +28,9 @@ public class AddressesController {
     private AddressesService addressesService;
 
     @Autowired
+    private ClientsService clientsService;
+
+    @Autowired
     private AddressConverter addressConverter;
 
     @PostMapping
@@ -35,10 +39,12 @@ public class AddressesController {
             @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content()),
             @ApiResponse(responseCode = "404", description = "Address Not Found", content = @Content())
     })
-    public ResponseEntity<AddressResponse> create(@Valid @RequestBody AddressRequest address) {
+    public ResponseEntity<AddressResponse> create(@Valid @RequestBody AddressRequest addressRequest) {
+        Address address = addressConverter.toModel(addressRequest);
+        address.setClient(clientsService.findById(addressRequest.getClientId()));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(addressConverter.toResponse(addressesService.create(addressConverter.toModel(address))));
+                .body(addressConverter.toResponse(addressesService.create(address)));
     }
 
     @GetMapping
@@ -54,7 +60,7 @@ public class AddressesController {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content()),
             @ApiResponse(responseCode = "404", description = "Address Not Found", content = @Content())
-    }, parameters = {@Parameter(description = "Id of the address for search")})
+    }, parameters = {@Parameter(name = "id", description = "Id of the address for search")})
     public ResponseEntity<AddressResponse> getById(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -67,18 +73,20 @@ public class AddressesController {
             @ApiResponse(responseCode = "201", description = "Updated"),
             @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content()),
             @ApiResponse(responseCode = "404", description = "Address Not Found", content = @Content())
-    }, parameters = {@Parameter(description = "Id of the address for search")})
-    public ResponseEntity<AddressResponse> update(@PathVariable Long id, @Valid @RequestBody AddressRequest address) {
+    }, parameters = {@Parameter(name = "id", description = "Id of the address for search")})
+    public ResponseEntity<AddressResponse> update(@PathVariable Long id, @Valid @RequestBody AddressRequest addressRequest) {
+        Address address = addressConverter.toModel(addressRequest);
+        address.setClient(clientsService.findById(addressRequest.getClientId()));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(addressConverter.toResponse(addressesService.update(addressConverter.toModel(address), id)));
+                .body(addressConverter.toResponse(addressesService.update(address, id)));
     }
 
     @DeleteMapping("{id}")
     @Operation(summary = "Delete an address", responses = {
             @ApiResponse(responseCode = "204", description = "Deleted", content = @Content()),
             @ApiResponse(responseCode = "404", description = "Address Not Found", content = @Content())
-    }, parameters = {@Parameter(description = "Id of the address for search")})
+    }, parameters = {@Parameter(name = "id", description = "Id of the address for search")})
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         addressesService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
