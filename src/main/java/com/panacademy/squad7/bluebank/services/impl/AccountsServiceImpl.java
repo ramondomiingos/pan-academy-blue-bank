@@ -2,19 +2,15 @@ package com.panacademy.squad7.bluebank.services;
 
 import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import com.panacademy.squad7.bluebank.domain.models.Account;
-import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.domain.repositories.AccountsRepository;
-import com.panacademy.squad7.bluebank.domain.repositories.ClientsRepository;
 import com.panacademy.squad7.bluebank.exceptions.ContentNotFoundException;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class AccountsServiceImpl implements AccountsService{
+public class AccountsServiceImpl implements AccountsService {
 
     private final AccountsRepository accountsRepository;
 
@@ -24,16 +20,8 @@ public class AccountsServiceImpl implements AccountsService{
 
     @Override
     public Account create(Account account) {
-        return  accountsRepository.save(account) ;
-//          Todo: Fazer a validação se o cliente existe,
-//           ou pegar do request quando o security estiver configurado.
-//        final ClientsRepository clientsRepository  ;
-//        Optional<Client> client =  clientsRepository.findById(account.getClient().getId());
-//        if (client.isPresent()){
-//           return  accountsRepository.save(account) ;
-//        }else{
-//            throw new ContentNotFoundException("Client not found with id:"+account.getClient().getId());
-//        }
+
+        return accountsRepository.save(account);
     }
 
     @Override

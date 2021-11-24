@@ -1,7 +1,8 @@
-package com.panacademy.squad7.bluebank.services;
+package com.panacademy.squad7.bluebank.services.impl;
 
 import java.util.List;
 
+import com.panacademy.squad7.bluebank.services.TransactionsTypesService;
 import org.springframework.stereotype.Service;
 
 import com.panacademy.squad7.bluebank.domain.enums.TransactionTypes;

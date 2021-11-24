@@ -2,7 +2,7 @@ package com.panacademy.squad7.bluebank.domain.enums;
 
 public enum RoleType {
         A("ROLE_ADMIN"),
-        U(" ROLE_USER");
+        U("ROLE_USER");
 
         private String description;
 
