@@ -1,8 +1,9 @@
-package com.panacademy.squad7.bluebank.services;
+package com.panacademy.squad7.bluebank.services.impl;
 
 import com.panacademy.squad7.bluebank.domain.models.User;
 import com.panacademy.squad7.bluebank.domain.repositories.UsersRepository;
 import com.panacademy.squad7.bluebank.exceptions.ContentNotFoundException;
+import com.panacademy.squad7.bluebank.services.UsersService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
