@@ -1,9 +1,9 @@
 package com.panacademy.squad7.bluebank.domain.enums;
 
 public enum StatusType {
-    A("Ativa"),
-    B("Bloqueada"),
-    C("Cancelada");
+    A("Active"),
+    B("Blocked"),
+    C("Cancelled");
 
     private String description;
 
