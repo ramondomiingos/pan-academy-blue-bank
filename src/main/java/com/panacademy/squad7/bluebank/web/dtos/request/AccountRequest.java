@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.Parameter;
+
 import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
@@ -19,6 +21,7 @@ public class AccountRequest {
     @NotBlank
     private Long agencyNumber;
     @NotBlank
+
     private Long accountNumber;
     @NotBlank
     private Character accountDigit;
