@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 @Component
 public class AddressConverter {
 
-    public List<AddressResponse> toListOfResponse(List<Address> Addresses) {
-        return Addresses.stream().map(this::toResponse).collect(Collectors.toList());
+    public List<AddressResponse> toListOfResponse(List<Address> addresses) {
+        return addresses.stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     public AddressResponse toResponse(Address address) {
