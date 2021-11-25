@@ -34,7 +34,8 @@ public class ClientConverter {
                 .accounts(
                         client.getAccounts() != null
                                 ? accountConverter.toListOfResponse(client.getAccounts())
-                                : null)
+                                : null
+                )
                 .build();
     }
 

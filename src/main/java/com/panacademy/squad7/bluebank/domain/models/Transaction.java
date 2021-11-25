@@ -1,20 +1,11 @@
 package com.panacademy.squad7.bluebank.domain.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.panacademy.squad7.bluebank.domain.enums.ClaimType;
+import com.panacademy.squad7.bluebank.domain.enums.TransactionType;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -40,11 +31,15 @@ public class Transaction {
     private Account destinationAccount;
 
     @Column(nullable = false)
-    private BigDecimal amount;
+    @Enumerated(EnumType.STRING)
+    private ClaimType claim;
 
-    @ManyToOne
-    @JoinColumn(name = "type_id")
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private TransactionType type;
+
+    @Column(nullable = false)
+    private BigDecimal amount;
 
     @Column(nullable = false, name = "created_at", updatable = false)
     @CreationTimestamp

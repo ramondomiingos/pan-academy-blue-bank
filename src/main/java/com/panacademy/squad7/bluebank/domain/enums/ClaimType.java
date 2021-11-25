@@ -1,12 +1,12 @@
 package com.panacademy.squad7.bluebank.domain.enums;
 
-public enum TransactionTypes {
+public enum ClaimType {
     C("Credit"),
     D("Debit");
 
     private final String description;
 
-    TransactionTypes(String description) {
+    ClaimType(String description) {
         this.description = description;
     }
 
