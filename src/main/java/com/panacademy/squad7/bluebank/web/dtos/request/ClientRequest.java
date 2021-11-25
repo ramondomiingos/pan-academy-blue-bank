@@ -6,46 +6,44 @@ import com.panacademy.squad7.bluebank.shared.annotations.CpfCnpj;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
 public class ClientRequest {
 
-    @NotBlank
+    @NotBlank(message = "name must not be blank")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "lastname must not be blank")
     private String lastname;
 
-    @NotBlank
+    @NotNull(message = "birthDate must not be null")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @NotBlank
+    @NotBlank(message = "motherName must not be blank")
     private String motherName;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "email must not be blank")
+    @Email(message = "email must be valid")
     private String email;
 
-    @NotBlank
-    @Size(min = 6, max = 20)
+    @NotBlank(message = "password must not be blank")
+    @Size(min = 6, max = 20, message = "password must be between 6 and 20 characters")
     private String password;
 
-    @Size(min = 8, max = 11)
+    @Size(min = 8, max = 11, message = "phone must be between 8 and 11 characters")
     private String phone;
 
-    @Size(min = 9, max = 11)
+    @Size(min = 9, max = 11, message = "cellphone must be between 9 and 11 characters")
     private String cellphone;
 
-    @NotBlank
+    @NotNull(message = "type must not be null")
     @Schema(enumAsRef = true)
     private ClientType type;
 
-    @NotBlank
+    @NotBlank(message = "registration must not be blank")
     @CpfCnpj
     private String registration;
 

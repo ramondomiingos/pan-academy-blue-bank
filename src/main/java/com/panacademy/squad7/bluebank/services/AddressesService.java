@@ -15,4 +15,6 @@ public interface AddressesService {
     Address findById(Long id);
 
     List<Address> findAll();
+
+    Address isValidAddress(Address address);
 }
