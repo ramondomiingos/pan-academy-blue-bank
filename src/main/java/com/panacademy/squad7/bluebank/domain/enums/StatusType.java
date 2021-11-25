@@ -5,13 +5,14 @@ public enum StatusType {
     B("Blocked"),
     C("Cancelled");
 
-    private String description;
+    private final String description;
 
-    StatusType(String description){
+    StatusType(String description) {
         this.description = description;
     }
 
     public String getDescription() {
         return description;
     }
+
 }

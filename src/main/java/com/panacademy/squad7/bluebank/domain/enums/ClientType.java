@@ -1,15 +1,17 @@
 package com.panacademy.squad7.bluebank.domain.enums;
 
 public enum ClientType {
-    PF("Pessoa Física"), PJ("Pessoa Jurídica");
+    NP("Natural Person"),
+    LP("Legal Person");
 
-    private String description;
+    private final String description;
 
-    ClientType(String description){
+    ClientType(String description) {
         this.description = description;
     }
 
     public String getDescription() {
         return description;
     }
+
 }

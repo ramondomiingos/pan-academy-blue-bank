@@ -1,17 +1,17 @@
 package com.panacademy.squad7.bluebank.domain.enums;
 
 public enum RoleType {
-        A("ROLE_ADMIN"),
-        U("ROLE_USER");
+    A("ROLE_ADMIN"),
+    U("ROLE_USER");
 
-        private String description;
+    private final String description;
 
-        RoleType(String description){
-            this.description = description;
-        }
+    RoleType(String description) {
+        this.description = description;
+    }
 
-        public String getDescription() {
-            return description;
-        }
+    public String getDescription() {
+        return description;
+    }
 
 }

@@ -1,20 +1,16 @@
 package com.panacademy.squad7.bluebank.domain.enums;
 
-public enum  AccountType {
+public enum AccountType {
+    CA("Checking Account"),
+    SA("Savings Account ");
 
-    CC("Conta Corrente"),
-    CP("Conta Poupança"),
-    CS("Conta Salário");
+    private final String description;
 
-    private String description;
-
-    AccountType(String description){
-
+    AccountType(String description) {
         this.description = description;
     }
 
     public String getDescription() {
-
         return description;
     }
 
