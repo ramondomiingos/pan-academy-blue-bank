@@ -23,23 +23,21 @@ public class AddressConverter {
                 .number(address.getAddressNumber())
                 .city(address.getCity())
                 .state(address.getState())
+                .clientId(address.getClient() != null ? address.getClient().getId() : null)
                 .build();
     }
 
     public Address toModel(AddressRequest addressRequest) {
-        Address address = Address.builder()
+        return Address.builder()
                 .address(addressRequest.getAddress())
                 .addressNumber(addressRequest.getNumber())
                 .city(addressRequest.getCity())
                 .state(addressRequest.getState())
+                .client(
+                        addressRequest.getClientId() != null
+                                ? Client.builder().id(addressRequest.getClientId()).build()
+                                : null
+                )
                 .build();
-
-        if(addressRequest.getClientId() != null) {
-            Client client = new Client();
-            client.setId(addressRequest.getClientId());
-            address.setClient(client);
-        }
-
-        return address;
     }
 }

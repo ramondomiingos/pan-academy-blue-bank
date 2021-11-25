@@ -37,7 +37,7 @@ public class AddressesController {
     @Operation(summary = "Add a new address", responses = {
             @ApiResponse(responseCode = "201", description = "Created"),
             @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content()),
-            @ApiResponse(responseCode = "404", description = "Address Not Found", content = @Content())
+            @ApiResponse(responseCode = "404", description = "Client Not Found", content = @Content())
     })
     public ResponseEntity<AddressResponse> create(@Valid @RequestBody AddressRequest addressRequest) {
         Address address = addressConverter.toModel(addressRequest);
@@ -58,7 +58,6 @@ public class AddressesController {
     @GetMapping("/{id}")
     @Operation(summary = "Find address by ID", responses = {
             @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content()),
             @ApiResponse(responseCode = "404", description = "Address Not Found", content = @Content())
     }, parameters = {@Parameter(name = "id", description = "Id of the address for search")})
     public ResponseEntity<AddressResponse> getById(@PathVariable Long id) {
@@ -72,7 +71,7 @@ public class AddressesController {
     @Operation(summary = "Update an address", responses = {
             @ApiResponse(responseCode = "201", description = "Updated"),
             @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content()),
-            @ApiResponse(responseCode = "404", description = "Address Not Found", content = @Content())
+            @ApiResponse(responseCode = "404", description = "Address or Client Not Found", content = @Content())
     }, parameters = {@Parameter(name = "id", description = "Id of the address for search")})
     public ResponseEntity<AddressResponse> update(@PathVariable Long id, @Valid @RequestBody AddressRequest addressRequest) {
         Address address = addressConverter.toModel(addressRequest);

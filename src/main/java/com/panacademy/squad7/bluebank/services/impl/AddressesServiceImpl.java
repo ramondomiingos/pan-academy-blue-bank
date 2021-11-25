@@ -60,7 +60,7 @@ public class AddressesServiceImpl implements AddressesService {
         System.out.println("isValid");
         Optional<Address> optionalAddress = addressesRepository.findByClientId(clientId);
         if (optionalAddress.isPresent()) {
-            if (optionalAddress.get().getId().equals(address.getId())) {
+            if (!optionalAddress.get().getId().equals(address.getId())) {
                 throw new InvalidInputException("client '" + clientId + "' already has address with id " + optionalAddress.get().getId());
             }
         }

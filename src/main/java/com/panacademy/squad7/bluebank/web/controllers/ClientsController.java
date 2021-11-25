@@ -65,7 +65,6 @@ public class ClientsController {
     @GetMapping("/{id}")
     @Operation(summary = "Find client by ID", responses = {
             @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content()),
             @ApiResponse(responseCode = "404", description = "Client Not Found", content = @Content())
     }, parameters = {@Parameter(description = "Id of the client for search")})
     public ResponseEntity<ClientResponse> getById(@PathVariable Long id) {

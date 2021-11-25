@@ -1,20 +1,19 @@
 package com.panacademy.squad7.bluebank.web.dtos.response;
 
-import java.time.LocalDate;
-import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.panacademy.squad7.bluebank.domain.enums.ClientType;
-import com.panacademy.squad7.bluebank.domain.models.Account;
-
 import lombok.Builder;
 import lombok.Data;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
 public class ClientResponse {
-	
-	private Long id;
-		
+
+    private Long id;
+
     private String name;
 
     private String lastname;
@@ -31,10 +30,13 @@ public class ClientResponse {
 
     private ClientType type;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long addressId;
-    	
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long userId;
 
-    private List<Account> accounts;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<AccountResponse> accounts;
 
 }

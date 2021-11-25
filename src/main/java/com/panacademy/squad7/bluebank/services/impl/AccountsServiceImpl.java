@@ -1,30 +1,27 @@
 package com.panacademy.squad7.bluebank.services.impl;
+
 import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import com.panacademy.squad7.bluebank.domain.models.Account;
-import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.domain.repositories.AccountsRepository;
-import com.panacademy.squad7.bluebank.domain.repositories.ClientsRepository;
 import com.panacademy.squad7.bluebank.exceptions.ContentNotFoundException;
 import com.panacademy.squad7.bluebank.services.AccountsService;
-import com.panacademy.squad7.bluebank.services.ClientsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class AccountsServiceImpl implements AccountsService {
 
     private final AccountsRepository accountsRepository;
+
     public AccountsServiceImpl(AccountsRepository accountsRepository) {
         this.accountsRepository = accountsRepository;
     }
 
     @Override
     public Account create(Account account) {
-            return accountsRepository.save(account);
-
+        return accountsRepository.save(account);
     }
 
     @Override
@@ -61,7 +58,7 @@ public class AccountsServiceImpl implements AccountsService {
     public List<Account> findAll() {
         return accountsRepository.findAll()
                 .stream()
-                .filter( account -> account.getStatus().equals(StatusType.A.getDescription()))
+                .filter(account -> account.getStatus().equals(StatusType.A))
                 .collect(Collectors.toList());
     }
 }

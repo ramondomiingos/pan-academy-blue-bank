@@ -2,38 +2,36 @@ package com.panacademy.squad7.bluebank.web.dtos.request;
 
 import com.panacademy.squad7.bluebank.domain.enums.AccountType;
 import com.panacademy.squad7.bluebank.domain.enums.StatusType;
-import com.panacademy.squad7.bluebank.domain.models.Client;
-import com.panacademy.squad7.bluebank.domain.models.Transaction;
-import javax.persistence.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.Parameter;
 import lombok.Data;
-import javax.validation.constraints.NotBlank;
+
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.List;
+
 @Data
 public class AccountRequest {
 
-     @NotNull
+    @Max(value = 9999, message = "must be between 1 and 4 characters")
+    @NotNull(message = "agencyNumber must not be null")
     private Long agencyNumber;
 
-     @NotNull
+    @NotNull(message = "accountNumber must not be null")
     private Long accountNumber;
 
-    @NotNull
+    @NotNull(message = "accountDigit must not be null")
     private Character accountDigit;
 
     private BigDecimal balance;
 
-    @NotNull
+    @NotNull(message = "type must not be null")
     @Schema(enumAsRef = true)
     private AccountType type;
 
     @Schema(enumAsRef = true)
     private StatusType status;
 
-    @NotNull
+    @NotNull(message = "clientId must not be null")
     private Long clientId;
 
 }

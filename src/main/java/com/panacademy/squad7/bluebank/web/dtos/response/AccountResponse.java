@@ -1,5 +1,6 @@
 package com.panacademy.squad7.bluebank.web.dtos.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.panacademy.squad7.bluebank.domain.enums.AccountType;
 import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,6 +28,7 @@ public class AccountResponse {
 
     private StatusType status;
 
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Long clientId;
 
 }
