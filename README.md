@@ -52,4 +52,122 @@ mentorias  foram assistidas nos horários pré determinados.
 
 * [Maven 3.8.3: Para executar build do Projeto](https://maven.apache.org/download.cgi)
 
-  
+## 🌐 Endpoints
+📄  As urls interativas, construídas através do [Swagger](https://swagger.io/tools/swagger-ui/), pode ser acessadas no link:
+[link da documentacao](ink da documentacao)
+
+| Método | URL     | Finalidade       |   
+|--------|---------|------------------|
+| POST   | /accounts | Criar um usuário |   
+| GET    |/accounts/{id}| Detalhar uma conta|   
+| DELETE | /accounts/{id}| Desativar uma conta | 
+
+
+## 📁 Diretórios e arquivos
+```
+.
+├── Dockerfile
+├── HELP.md
+├── README.md
+├── blue-bank.iml
+├── docker-compose.yaml
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── panacademy
+│   │   │           └── squad7
+│   │   │               └── bluebank
+│   │   │                   ├── BlueBankApplication.java
+│   │   │                   ├── configs
+│   │   │                   │   └── OpenApiConfig.java
+│   │   │                   ├── domain
+│   │   │                   │   ├── enums
+│   │   │                   │   │   ├── AccountType.java
+│   │   │                   │   │   ├── ClientType.java
+│   │   │                   │   │   ├── RoleType.java
+│   │   │                   │   │   ├── StatusType.java
+│   │   │                   │   │   └── TransactionTypes.java
+│   │   │                   │   ├── models
+│   │   │                   │   │   ├── Account.java
+│   │   │                   │   │   ├── Address.java
+│   │   │                   │   │   ├── AddressRepository.java
+│   │   │                   │   │   ├── Client.java
+│   │   │                   │   │   ├── Transaction.java
+│   │   │                   │   │   ├── TransactionType.java
+│   │   │                   │   │   └── User.java
+│   │   │                   │   └── repositories
+│   │   │                   │       ├── AccountsRepository.java
+│   │   │                   │       ├── AddressesRepository.java
+│   │   │                   │       ├── ClientsRepository.java
+│   │   │                   │       ├── TransactionsRepository.java
+│   │   │                   │       ├── TransactionsTypesRepository.java
+│   │   │                   │       └── UsersRepository.java
+│   │   │                   ├── exceptions
+│   │   │                   │   ├── BlueBankRunTimeExceptionHandler.java
+│   │   │                   │   ├── ContentNotFoundException.java
+│   │   │                   │   ├── InvalidInputException.java
+│   │   │                   │   └── dtos
+│   │   │                   │       └── ApiExceptionsDTO.java
+│   │   │                   ├── services
+│   │   │                   │   ├── AccountsService.java
+│   │   │                   │   ├── AddressesService.java
+│   │   │                   │   ├── ClientsService.java
+│   │   │                   │   ├── TransactionsService.java
+│   │   │                   │   ├── TransactionsTypesService.java
+│   │   │                   │   ├── UsersService.java
+│   │   │                   │   └── impl
+│   │   │                   │       ├── AccountsServiceImpl.java
+│   │   │                   │       ├── AddressesServiceImpl.java
+│   │   │                   │       ├── ClientsServiceImpl.java
+│   │   │                   │       ├── TransactionsServiceImpl.java
+│   │   │                   │       ├── TransactionsTypesServiceImpl.java
+│   │   │                   │       └── UsersServiceImpl.java
+│   │   │                   ├── shared
+│   │   │                   │   ├── annotations
+│   │   │                   │   │   └── CpfCnpj.java
+│   │   │                   │   ├── converters
+│   │   │                   │   │   ├── AccountConverter.java
+│   │   │                   │   │   ├── AddressConverter.java
+│   │   │                   │   │   ├── ClientConverter.java
+│   │   │                   │   │   └── UserConverter.java
+│   │   │                   │   └── validators
+│   │   │                   │       └── CpfCnpjValidator.java
+│   │   │                   └── web
+│   │   │                       ├── controllers
+│   │   │                       │   ├── AccountsController.java
+│   │   │                       │   ├── AddressesController.java
+│   │   │                       │   ├── ClientsController.java
+│   │   │                       │   └── HomeController.java
+│   │   │                       └── dtos
+│   │   │                           ├── request
+│   │   │                           │   ├── AccountRequest.java
+│   │   │                           │   ├── AddressRequest.java
+│   │   │                           │   └── ClientRequest.java
+│   │   │                           └── response
+│   │   │                               ├── AccountResponse.java
+│   │   │                               ├── AddressResponse.java
+│   │   │                               └── ClientResponse.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       ├── db
+│   │       │   └── migration
+│   │       │       ├── V1__baseline_migration.sql
+│   │       │       └── V2__fix_transactions_table.sql
+│   │       ├── openapi.properties
+│   │       ├── static
+│   │       └── templates
+│   └── test
+│       ├── java
+│       │   └── com
+│       │       └── panacademy
+│       │           └── squad7
+│       │               └── bluebank
+│       │                   └── BlueBankApplicationTests.java
+│       └── resources
+│           └── application.properties
+```
+

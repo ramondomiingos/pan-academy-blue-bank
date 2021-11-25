@@ -4,43 +4,36 @@ import com.panacademy.squad7.bluebank.domain.enums.AccountType;
 import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.domain.models.Transaction;
-
 import javax.persistence.*;
-
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.Parameter;
-
 import lombok.Data;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 @Data
 public class AccountRequest {
 
-    @NotBlank
+     @NotNull
     private Long agencyNumber;
-    @NotBlank
 
+     @NotNull
     private Long accountNumber;
-    @NotBlank
-    private Character accountDigit;
 
-    //@Column(nullable = false, columnDefinition = "decimal(10, 2) default 0")
+    @NotNull
+    private Character accountDigit;
 
     private BigDecimal balance;
 
-    @NotBlank
+    @NotNull
     @Schema(enumAsRef = true)
     private AccountType type;
 
     @Schema(enumAsRef = true)
     private StatusType status;
 
-    @NotBlank
+    @NotNull
     private Long clientId;
-
-
-
 
 }
