@@ -16,4 +16,6 @@ public interface AccountsService {
     Account findById(Long id);
 
     List<Account> findAll();
+
+    Account findByAgencyNumberAndAccountNumber(Long agencyNumber, Long accountNumber);
 }

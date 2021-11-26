@@ -6,8 +6,12 @@ import com.panacademy.squad7.bluebank.domain.models.Transaction;
 
 public interface TransactionsService {
 
-	Transaction create(Transaction transaction);
-	
+	Transaction deposit(Transaction transaction);
+
+	Transaction withdraw(Transaction transaction);
+
+	Transaction transfer(Transaction transaction);
+
 	Transaction findById(Long id);
 	
 	List<Transaction> findAll();

@@ -2,7 +2,11 @@ package com.panacademy.squad7.bluebank.shared.converters;
 
 
 import com.panacademy.squad7.bluebank.domain.enums.ClaimType;
+import com.panacademy.squad7.bluebank.domain.enums.TransactionType;
 import com.panacademy.squad7.bluebank.domain.models.Transaction;
+import com.panacademy.squad7.bluebank.web.dtos.request.DepositRequest;
+import com.panacademy.squad7.bluebank.web.dtos.request.TransferRequest;
+import com.panacademy.squad7.bluebank.web.dtos.request.WithdrawRequest;
 import com.panacademy.squad7.bluebank.web.dtos.response.TransactionResponse;
 import org.springframework.stereotype.Component;
 
@@ -40,21 +44,28 @@ public class TransactionConverter {
                 .build();
     }
 
-    /*
-    public Transaction toModel(TransactionRequest transactionRequest) {
+
+    public Transaction toModel(DepositRequest depositRequest) {
         return Transaction.builder()
-                .agencyNumber(transactionRequest.getAgencyNumber())
-                .transactionNumber(transactionRequest.getTransactionNumber())
-                .transactionDigit(transactionRequest.getTransactionDigit())
-                .balance(transactionRequest.getBalance())
-                .type(transactionRequest.getType())
-                .status(transactionRequest.getStatus())
-                .client(
-                        transactionRequest.getClientId() != null
-                                ? Client.builder().id(transactionRequest.getClientId()).build()
-                                : null
-                )
+                .amount(depositRequest.getAmount())
+                .claim(ClaimType.C)
+                .type(TransactionType.DEPOSIT)
                 .build();
     }
-    */
+
+    public Transaction toModel(WithdrawRequest withdrawRequest) {
+        return Transaction.builder()
+                .amount(withdrawRequest.getAmount())
+                .claim(ClaimType.D)
+                .type(withdrawRequest.getType())
+                .build();
+    }
+
+    public Transaction toModel(TransferRequest transferRequest) {
+        return Transaction.builder()
+                .amount(transferRequest.getAmount())
+                .claim(ClaimType.D)
+                .type(transferRequest.getType())
+                .build();
+    }
 }

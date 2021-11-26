@@ -56,9 +56,14 @@ public class AccountsServiceImpl implements AccountsService {
 
     @Override
     public List<Account> findAll() {
-        return accountsRepository.findAll()
-                .stream()
-                .filter(account -> account.getStatus().equals(StatusType.A))
+        return accountsRepository.findAll().stream().filter(account -> account.getStatus().equals(StatusType.A))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Account findByAgencyNumberAndAccountNumber(Long agencyNumber, Long accountNumber) {
+        return accountsRepository.findByAgencyNumberAndAccountNumber(agencyNumber, accountNumber)
+                .orElseThrow(() -> new ContentNotFoundException(
+                        "account not found in agency " + agencyNumber + " with account " + accountNumber));
     }
 }
