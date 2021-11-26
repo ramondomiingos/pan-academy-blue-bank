@@ -1,6 +1,6 @@
-package com.panacademy.squad7.bluebank.shared.validators;
+package com.panacademy.squad7.bluebank.web.helpers.validators;
 
-import com.panacademy.squad7.bluebank.shared.annotations.CpfCnpj;
+import com.panacademy.squad7.bluebank.web.helpers.annotations.CpfCnpj;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

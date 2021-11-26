@@ -1,4 +1,4 @@
-package com.panacademy.squad7.bluebank.shared.converters;
+package com.panacademy.squad7.bluebank.web.helpers.converters;
 
 import com.panacademy.squad7.bluebank.domain.models.Address;
 import com.panacademy.squad7.bluebank.domain.models.Client;

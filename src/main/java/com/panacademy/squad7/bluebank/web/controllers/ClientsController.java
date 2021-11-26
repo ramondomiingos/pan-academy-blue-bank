@@ -4,8 +4,8 @@ import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.domain.models.User;
 import com.panacademy.squad7.bluebank.services.ClientsService;
 import com.panacademy.squad7.bluebank.services.UsersService;
-import com.panacademy.squad7.bluebank.shared.converters.ClientConverter;
-import com.panacademy.squad7.bluebank.shared.converters.UserConverter;
+import com.panacademy.squad7.bluebank.web.helpers.converters.ClientConverter;
+import com.panacademy.squad7.bluebank.web.helpers.converters.UserConverter;
 import com.panacademy.squad7.bluebank.web.dtos.request.ClientRequest;
 import com.panacademy.squad7.bluebank.web.dtos.response.ClientResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,7 +66,7 @@ public class ClientsController {
     @Operation(summary = "Find client by ID", responses = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "Client Not Found", content = @Content())
-    }, parameters = {@Parameter(description = "Id of the client for search")})
+    }, parameters = {@Parameter(name = "id", description = "Id of the client for search")})
     public ResponseEntity<ClientResponse> getById(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -78,7 +78,7 @@ public class ClientsController {
             @ApiResponse(responseCode = "201", description = "Updated"),
             @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content()),
             @ApiResponse(responseCode = "404", description = "Client Not Found", content = @Content())
-    }, parameters = {@Parameter(description = "Id of the client for search")})
+    }, parameters = {@Parameter(name = "id", description = "Id of the client for search")})
     public ResponseEntity<ClientResponse> update(@PathVariable Long id, @Valid @RequestBody ClientRequest client) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -89,7 +89,7 @@ public class ClientsController {
     @Operation(summary = "Delete a client", responses = {
             @ApiResponse(responseCode = "204", description = "Deleted", content = @Content()),
             @ApiResponse(responseCode = "404", description = "Client Not Found", content = @Content())
-    }, parameters = {@Parameter(description = "Id of the client for search")})
+    }, parameters = {@Parameter(name = "id", description = "Id of the client for search")})
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         clientsService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

@@ -1,10 +1,9 @@
 package com.panacademy.squad7.bluebank.web.controllers;
 
 import com.panacademy.squad7.bluebank.domain.models.Account;
-import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.services.AccountsService;
 import com.panacademy.squad7.bluebank.services.ClientsService;
-import com.panacademy.squad7.bluebank.shared.converters.AccountConverter;
+import com.panacademy.squad7.bluebank.web.helpers.converters.AccountConverter;
 import com.panacademy.squad7.bluebank.web.dtos.request.AccountRequest;
 import com.panacademy.squad7.bluebank.web.dtos.response.AccountResponse;
 import io.swagger.v3.oas.annotations.Operation;

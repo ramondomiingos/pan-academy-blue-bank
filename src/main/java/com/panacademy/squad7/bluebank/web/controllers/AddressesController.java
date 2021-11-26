@@ -3,7 +3,7 @@ package com.panacademy.squad7.bluebank.web.controllers;
 import com.panacademy.squad7.bluebank.domain.models.Address;
 import com.panacademy.squad7.bluebank.services.AddressesService;
 import com.panacademy.squad7.bluebank.services.ClientsService;
-import com.panacademy.squad7.bluebank.shared.converters.AddressConverter;
+import com.panacademy.squad7.bluebank.web.helpers.converters.AddressConverter;
 import com.panacademy.squad7.bluebank.web.dtos.request.AddressRequest;
 import com.panacademy.squad7.bluebank.web.dtos.response.AddressResponse;
 import io.swagger.v3.oas.annotations.Operation;

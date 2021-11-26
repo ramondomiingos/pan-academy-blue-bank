@@ -1,6 +1,6 @@
-package com.panacademy.squad7.bluebank.shared.annotations;
+package com.panacademy.squad7.bluebank.web.helpers.annotations;
 
-import com.panacademy.squad7.bluebank.shared.validators.CpfCnpjValidator;
+import com.panacademy.squad7.bluebank.web.helpers.validators.CpfCnpjValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
