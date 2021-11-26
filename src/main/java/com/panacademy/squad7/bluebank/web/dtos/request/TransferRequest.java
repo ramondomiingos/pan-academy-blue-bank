@@ -10,14 +10,16 @@ import java.math.BigDecimal;
 @Data
 public class TransferRequest {
 
+    @Min(value = 1, message = "agencyNumber must be different from 0")
     @Digits(integer = 4, fraction = 0, message = "agencyNumber must be between 1 and 4 characters")
     @NotNull(message = "agencyNumber must not be null")
     private Long agencyNumber;
 
-    @Min(value = 1, message = "accountNumber must be more than 1 character")
+    @Min(value = 1, message = "accountNumber must be different from 0")
     @NotNull(message = "accountNumber must not be null")
     private Long accountNumber;
 
+    @Schema(example = "0")
     @NotNull(message = "accountDigit must not be null")
     private Character accountDigit;
 
@@ -26,7 +28,7 @@ public class TransferRequest {
     @NotNull(message = "amount must not be null")
     private BigDecimal amount;
 
-    @Schema(enumAsRef = true)
+    @Schema(type = "String", allowableValues = {"PAYMENT", "DOC", "TED", "PIX"}, example = "PIX")
     @NotNull(message = "type must not be null")
     private TransactionType type;
 

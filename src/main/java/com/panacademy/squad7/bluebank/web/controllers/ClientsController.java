@@ -23,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
-@Tag(name = "Clients", description = "endpoint for all client requests")
+@Tag(name = " Clients", description = "endpoint for all client requests")
 public class ClientsController {
 
     @Autowired

@@ -2,7 +2,7 @@ package com.panacademy.squad7.bluebank.web.dtos.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.panacademy.squad7.bluebank.domain.enums.ClientType;
-import com.panacademy.squad7.bluebank.shared.annotations.CpfCnpj;
+import com.panacademy.squad7.bluebank.web.helpers.annotations.CpfCnpj;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

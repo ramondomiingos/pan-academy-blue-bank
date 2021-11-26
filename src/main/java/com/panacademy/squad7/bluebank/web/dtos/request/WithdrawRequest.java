@@ -12,12 +12,12 @@ import java.math.BigDecimal;
 @Data
 public class WithdrawRequest {
 
-    @Positive
+    @Positive(message = "amount must not be negative")
     @DecimalMin(value = "0.01", message = "the amount value must be greater than 0.01")
     @NotNull(message = "amount must not be null")
     private BigDecimal amount;
 
-    @Schema(enumAsRef = true)
+    @Schema(type = "String", allowableValues = {"PAYMENT", "WITHDRAW", "DOC", "TED", "PIX"}, example = "WITHDRAW")
     @NotNull(message = "type must not be null")
     private TransactionType type;
 

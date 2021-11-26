@@ -66,4 +66,15 @@ public class AccountsController {
                 .body(accountConverter.toResponse(accountsService.findById(id)));
     }
 
+    @GetMapping("/{id}/extract")
+    @Operation(summary = "Find account by ID", responses = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "Account Not Found", content = @Content())
+    }, parameters = {@Parameter(name = "id", description = "Id of the account for search")})
+    public ResponseEntity<AccountResponse> getExtractById(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountConverter.toExtractResponse(accountsService.findById(id)));
+    }
+
 }

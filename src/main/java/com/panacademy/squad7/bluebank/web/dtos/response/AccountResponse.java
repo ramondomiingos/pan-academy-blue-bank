@@ -9,6 +9,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Builder
@@ -30,5 +31,11 @@ public class AccountResponse {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long clientId;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<TransactionResponse> receivedTransfers;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<TransactionResponse> madeTransfers;
 
 }
