@@ -10,3 +10,7 @@ phases:
   post_build:
     commands:
       - echo "Pipeline success"
+      - mv target/*.jar blue-bank.jar
+artifacts:
+  files:
+    - blue-bank.jar
