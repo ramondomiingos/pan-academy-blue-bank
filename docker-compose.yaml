@@ -11,6 +11,7 @@ services:
     environment:
       - ADDITIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n -Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
       - PROFILE=docker
+      - DB_HOST=db
     depends_on:
       db:
         condition: service_healthy
