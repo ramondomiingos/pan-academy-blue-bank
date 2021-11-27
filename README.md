@@ -54,7 +54,7 @@ mentorias  foram assistidas nos horários pré determinados.
 
 ## 🌐 Endpoints
 📄  As urls interativas, construídas através do [Swagger](https://swagger.io/tools/swagger-ui/), pode ser acessadas no link:
-[link da documentacao](ink da documentacao)
+[http://beanstalkbluebankt2s7-env.eba-cchrqxz2.us-east-1.elasticbeanstalk.com/](http://beanstalkbluebankt2s7-env.eba-cchrqxz2.us-east-1.elasticbeanstalk.com/)
 
 | Método | URL     | Finalidade       |   
 |--------|---------|------------------|
