@@ -34,3 +34,6 @@ build/
 
 ### Docker ###
 .docker/volume_mysql/
+
+### Plugins ###
+.jpb/
