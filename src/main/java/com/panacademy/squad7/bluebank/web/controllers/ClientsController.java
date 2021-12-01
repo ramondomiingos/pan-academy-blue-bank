@@ -4,14 +4,15 @@ import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.domain.models.User;
 import com.panacademy.squad7.bluebank.services.ClientsService;
 import com.panacademy.squad7.bluebank.services.UsersService;
-import com.panacademy.squad7.bluebank.web.helpers.converters.ClientConverter;
-import com.panacademy.squad7.bluebank.web.helpers.converters.UserConverter;
 import com.panacademy.squad7.bluebank.web.dtos.request.ClientRequest;
 import com.panacademy.squad7.bluebank.web.dtos.response.ClientResponse;
+import com.panacademy.squad7.bluebank.web.helpers.converters.ClientConverter;
+import com.panacademy.squad7.bluebank.web.helpers.converters.UserConverter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/clients")
 @Tag(name = " Clients", description = "endpoint for all client requests")
+@SecurityRequirement(name = "bearerAuth")
 public class ClientsController {
 
     @Autowired

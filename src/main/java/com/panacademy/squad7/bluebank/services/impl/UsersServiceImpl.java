@@ -4,6 +4,8 @@ import com.panacademy.squad7.bluebank.domain.models.User;
 import com.panacademy.squad7.bluebank.domain.repositories.UsersRepository;
 import com.panacademy.squad7.bluebank.exceptions.ContentNotFoundException;
 import com.panacademy.squad7.bluebank.services.UsersService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,5 +51,11 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public List<User> findAll() {
         return UsersRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return UsersRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
     }
 }

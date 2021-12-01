@@ -58,9 +58,25 @@ mentorias  foram assistidas nos horários pré determinados.
 
 | Método | URL     | Finalidade       |   
 |--------|---------|------------------|
-| POST   | /accounts | Criar um usuário |   
+| POST   |/accounts | Criar um usuário |   
 | GET    |/accounts/{id}| Detalhar uma conta|   
-| DELETE | /accounts/{id}| Desativar uma conta | 
+| DELETE |/accounts/{id}| Desativar uma conta | 
+|GET     |/clients | Lista todos os clientes|
+|POST    |/clients | Adiciona um novo cliente|
+|GET     |/clients/{id} |Busca 1 cliente por id|
+|PUT     |/clients/{id} |Atualiza 1 cliente por id|
+|DELETE  |/clients/{id} |delete  1 cliente por id|
+|GET     |/addresses | Lista todos os endereços|
+|POST    |/addresses | Adiciona um novo endereço|
+|GET     |/addresses/{id} |Busca 1 endereço por id|
+|PUT     |/addresses/{id} |Atualiza 1 endereço por id|
+|DELETE  |/addresses/{id} |delete  1 endereço por id|
+|GET     |/transactions | Lista todas as transações|
+|GET     |/transactions{id} | Lista 1 transação|
+|POST    |/transactions/deposit | Realiza um depósito em uma conta|
+|POST    |/transactions/transfer/{idAccount} | Realiza uma trasnferência de uma conta para outro|
+|POST    |/transactions/withdraw/{idAccount} | Realiza um saque em uma conta|
+|GET     |/hello | Mostra uma mensagens de boas vindas|
 
 
 ## 📁 Diretórios e arquivos

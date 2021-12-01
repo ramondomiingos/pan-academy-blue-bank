@@ -1,5 +1,7 @@
 package com.panacademy.squad7.bluebank.configs;
 
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
@@ -13,6 +15,12 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:openapi.properties")
+@SecurityScheme(
+        name = "bearerAuth",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        scheme = "bearer"
+)
 public class OpenApiConfig {
     @Bean
     public GroupedOpenApi rootGroup() {
@@ -20,7 +28,7 @@ public class OpenApiConfig {
                 .builder()
                 .group("root")
                 .addOperationCustomizer((operation, handlerMethod) -> {
-                    operation.addSecurityItem(new SecurityRequirement().addList("basicScheme"));
+                    operation.addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
                     return operation;
                 })
                 .build();
