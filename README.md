@@ -63,14 +63,14 @@ mentorias  foram assistidas nos horários pré determinados.
 | DELETE |/accounts/{id}| Desativar uma conta | 
 |GET     |/clients | Lista todos os clientes|
 |POST    |/clients | Adiciona um novo cliente|
-|GET     |/clients/{ID} |Busca 1 cliente por id|
-|PUT     |/clients/{ID} |Atualiza 1 cliente por id|
-|DELETE  |/clients/{ID} |delete  1 cliente por id|
+|GET     |/clients/{id} |Busca 1 cliente por id|
+|PUT     |/clients/{id} |Atualiza 1 cliente por id|
+|DELETE  |/clients/{id} |delete  1 cliente por id|
 |GET     |/addresses | Lista todos os endereços|
 |POST    |/addresses | Adiciona um novo endereço|
-|GET     |/addresses/{ID} |Busca 1 endereço por id|
-|PUT     |/addresses/{ID} |Atualiza 1 endereço por id|
-|DELETE  |/addresses/{ID} |delete  1 endereço por id|
+|GET     |/addresses/{id} |Busca 1 endereço por id|
+|PUT     |/addresses/{id} |Atualiza 1 endereço por id|
+|DELETE  |/addresses/{id} |delete  1 endereço por id|
 |GET     |/transactions | Lista todas as transações|
 |GET     |/transactions{id} | Lista 1 transação|
 |POST    |/transactions/deposit | Realiza um depósito em uma conta|
