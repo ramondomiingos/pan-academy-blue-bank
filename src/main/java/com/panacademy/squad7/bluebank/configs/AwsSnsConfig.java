@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@PropertySources(value = {@PropertySource("classpath:aws.properties"),@PropertySource("classpath:secret.properties")})
+@PropertySources(value = {
+        @PropertySource(value = "classpath:secret.properties", ignoreResourceNotFound = true),
+        @PropertySource(value = "classpath:aws.properties", ignoreResourceNotFound = true)})
 public class AwsSnsConfig {
 
     @Value("${bluebank.aws.accessKey}")
