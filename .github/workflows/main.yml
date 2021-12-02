@@ -10,6 +10,10 @@ jobs:
     name: Unit tests
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
+      AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
+      AWS_TOPIC_ARN: ${{secrets.AWS_TOPIC_ARN}}
     #Job's steps
     steps:
       #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
@@ -37,6 +41,10 @@ jobs:
     name: Build
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
+      AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
+      AWS_TOPIC_ARN: ${{secrets.AWS_TOPIC_ARN}}
     steps:
       #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - uses: actions/checkout@v1
