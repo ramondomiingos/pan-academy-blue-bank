@@ -9,6 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 class BlueBankApplicationTests {
 
     @Test
-    void contextLoads() {}
+    void contextLoads() {
+    }
 
 }

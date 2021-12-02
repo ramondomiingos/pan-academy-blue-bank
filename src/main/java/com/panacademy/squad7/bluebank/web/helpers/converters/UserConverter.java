@@ -14,11 +14,11 @@ public class UserConverter {
                 .username(clientRequest.getEmail())
                 .role(RoleType.U)
                 .build();
-        if(clientRequest.getPassword()!= null) {
+        if (clientRequest.getPassword() != null) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(clientRequest.getPassword()));
             return user;
-        }else{
+        } else {
             throw new InvalidInputException("the password field needs to be filled");
         }
     }

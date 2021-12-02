@@ -1,7 +1,6 @@
 package com.panacademy.squad7.bluebank.exceptions;
 
 import com.panacademy.squad7.bluebank.exceptions.dtos.ApiExceptionsDTO;
-
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.slf4j.Logger;
@@ -23,33 +22,33 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class BlueBankRunTimeExceptionHandler extends ResponseEntityExceptionHandler {
 
-  private static final Logger logger = LoggerFactory.getLogger(BlueBankRunTimeExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(BlueBankRunTimeExceptionHandler.class);
 
-  @ExceptionHandler(value = { InvalidInputException.class })
-  public ResponseEntity<Object> handleInvalidInputException(InvalidInputException exception) {
-    logger.error("Invalid Input Exception: " + exception.getMessage());
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiExceptionsDTO(exception));
-  }
+    @ExceptionHandler(value = {InvalidInputException.class})
+    public ResponseEntity<Object> handleInvalidInputException(InvalidInputException exception) {
+        logger.error("Invalid Input Exception: " + exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiExceptionsDTO(exception));
+    }
 
-  @ExceptionHandler(value = { ContentNotFoundException.class })
-  public ResponseEntity<Object> handleContentNotFoundException(ContentNotFoundException exception) {
-    logger.error("Content Not Found Exception: " + exception.getMessage());
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiExceptionsDTO(exception));
-  }
+    @ExceptionHandler(value = {ContentNotFoundException.class})
+    public ResponseEntity<Object> handleContentNotFoundException(ContentNotFoundException exception) {
+        logger.error("Content Not Found Exception: " + exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiExceptionsDTO(exception));
+    }
 
-  @Override
-  @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content())
-  @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content())
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
-      HttpStatus status, WebRequest request) {
-    List<String> errors = ex.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiExceptionsDTO("Invalid Parameters", errors));
-  }
+    @Override
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content())
+    @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content())
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
+                                                                  HttpStatus status, WebRequest request) {
+        List<String> errors = ex.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiExceptionsDTO("Invalid Parameters", errors));
+    }
 
-  @ExceptionHandler(value = { DataIntegrityViolationException.class} )
-  public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
-    logger.error("Data Integrity Violation Exception: " + exception.getMessage());
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiExceptionsDTO(exception));
-  }
+    @ExceptionHandler(value = {DataIntegrityViolationException.class})
+    public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+        logger.error("Data Integrity Violation Exception: " + exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiExceptionsDTO(exception));
+    }
 
 }
