@@ -1,5 +1,7 @@
 package com.panacademy.squad7.bluebank.web.controllers;
 
+import com.amazonaws.services.sns.AmazonSNSClient;
+import com.amazonaws.services.sns.model.SubscribeRequest;
 import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.domain.models.User;
 import com.panacademy.squad7.bluebank.services.ClientsService;
@@ -15,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +31,9 @@ import java.util.List;
 @SecurityRequirement(name = "bearerAuth")
 public class ClientsController {
 
+    @Value("${bluebank.aws.topicArn}")
+    private String TOPIC_ARN;
+
     @Autowired
     private ClientsService clientsService;
 
@@ -40,17 +46,23 @@ public class ClientsController {
     @Autowired
     private UserConverter userConverter;
 
+    @Autowired
+    private AmazonSNSClient snsClient;
+
     @PostMapping
     @Operation(summary = "Add a new client", responses = {
             @ApiResponse(responseCode = "201", description = "Created"),
             @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content())
     })
     public ResponseEntity<ClientResponse> create(@Valid @RequestBody ClientRequest clientRequest) {
-        Client client = clientsService.create(clientConverter.toModel(clientRequest));
         User user = userConverter.toModel(clientRequest);
+        Client client = clientsService.create(clientConverter.toModel(clientRequest));
+
         user.setClient(client);
-        user = usersService.create(user);
-        client.setUser(user);
+        client.setUser(usersService.create(user));
+
+        snsClient.subscribe(new SubscribeRequest(TOPIC_ARN, "email", clientRequest.getEmail()));
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(clientConverter.toResponse(client));
@@ -96,4 +108,5 @@ public class ClientsController {
         clientsService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
 }

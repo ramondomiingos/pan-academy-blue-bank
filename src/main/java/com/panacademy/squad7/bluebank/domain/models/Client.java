@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import com.panacademy.squad7.bluebank.domain.enums.ClientType;
 
+import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,6 +54,10 @@ public class Client {
     private String phone;
 
     private String cellphone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StatusType status;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

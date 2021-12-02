@@ -1,19 +1,19 @@
 package com.panacademy.squad7.bluebank.services.impl;
 
-import java.util.List;
-
-import com.panacademy.squad7.bluebank.services.ClientsService;
-import org.springframework.stereotype.Service;
-
+import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.domain.repositories.ClientsRepository;
 import com.panacademy.squad7.bluebank.exceptions.ContentNotFoundException;
+import com.panacademy.squad7.bluebank.services.ClientsService;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientsServiceImpl implements ClientsService {
-	
-	private final ClientsRepository clientsRepository;
+
+    private final ClientsRepository clientsRepository;
 
     public ClientsServiceImpl(ClientsRepository clientsRepository) {
         this.clientsRepository = clientsRepository;
@@ -24,7 +24,6 @@ public class ClientsServiceImpl implements ClientsService {
         return clientsRepository.save(client);
     }
 
-    
     @Override
     public Client update(Client client, Long id) {
         return clientsRepository.findById(id).map(c -> {
@@ -51,7 +50,8 @@ public class ClientsServiceImpl implements ClientsService {
 
     @Override
     public List<Client> findAll() {
-        return clientsRepository.findAll();
+        return clientsRepository.findAll().stream().filter(client -> client.getStatus().equals(StatusType.A))
+                .collect(Collectors.toList());
     }
 
 }
