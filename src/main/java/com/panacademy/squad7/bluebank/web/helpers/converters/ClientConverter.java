@@ -50,7 +50,7 @@ public class ClientConverter {
                 .email(clientRequest.getEmail())
                 .phone(clientRequest.getPhone())
                 .cellphone(clientRequest.getCellphone())
-                .status(clientRequest.getStatus() != null ? clientRequest.getStatus() :  StatusType.A)
+                .status(clientRequest.getStatus() != null ? clientRequest.getStatus() : StatusType.A)
                 .type(clientRequest.getType())
                 .registration(clientRequest.getRegistration())
                 .build();

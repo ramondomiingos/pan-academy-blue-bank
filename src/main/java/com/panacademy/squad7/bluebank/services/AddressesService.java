@@ -1,8 +1,8 @@
 package com.panacademy.squad7.bluebank.services;
 
-import java.util.List;
-
 import com.panacademy.squad7.bluebank.domain.models.Address;
+
+import java.util.List;
 
 public interface AddressesService {
 

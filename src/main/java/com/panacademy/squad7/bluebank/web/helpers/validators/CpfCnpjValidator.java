@@ -9,7 +9,8 @@ import java.util.InputMismatchException;
 public class CpfCnpjValidator implements ConstraintValidator<CpfCnpj, String> {
 
     @Override
-    public void initialize(CpfCnpj constraintAnnotation) {}
+    public void initialize(CpfCnpj constraintAnnotation) {
+    }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
@@ -20,16 +21,16 @@ public class CpfCnpjValidator implements ConstraintValidator<CpfCnpj, String> {
      * Realiza a validação do CPF.
      *
      * @param cpf número de CPF a ser validado pode ser passado no formado 999.999.999-99 ou
-     *        99999999999
+     *            99999999999
      * @return true se o CPF é válido e false se não é válido
      */
     private boolean isCpf(String cpf) {
         cpf = cpf.replace(".", "");
         cpf = cpf.replace("-", "");
 
-        try{
+        try {
             Long.parseLong(cpf);
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
 
@@ -39,10 +40,10 @@ public class CpfCnpjValidator implements ConstraintValidator<CpfCnpj, String> {
         String nDigResult;
 
         d1 = d2 = 0;
-        digito1 = digito2 = resto = 0;
+        //digito1 = digito2 = resto = 0;
 
         for (int nCount = 1; nCount < cpf.length() - 1; nCount++) {
-            digitoCPF = Integer.valueOf(cpf.substring(nCount - 1, nCount)).intValue();
+            digitoCPF = Integer.parseInt(cpf.substring(nCount - 1, nCount));
 
             // multiplique a ultima casa por 2 a seguinte por 3 a seguinte por 4
             // e assim por diante.
@@ -51,16 +52,16 @@ public class CpfCnpjValidator implements ConstraintValidator<CpfCnpj, String> {
             // para o segundo digito repita o procedimento incluindo o primeiro
             // digito calculado no passo anterior.
             d2 = d2 + (12 - nCount) * digitoCPF;
-        };
+        }
 
         // Primeiro resto da divisão por 11.
         resto = (d1 % 11);
 
         // Se o resultado for 0 ou 1 o digito é 0 caso contrário o digito é 11
         // menos o resultado anterior.
-        if (resto < 2)
+        if (resto < 2) {
             digito1 = 0;
-        else
+        } else
             digito1 = 11 - resto;
 
         d2 += 2 * digito1;
@@ -70,16 +71,16 @@ public class CpfCnpjValidator implements ConstraintValidator<CpfCnpj, String> {
 
         // Se o resultado for 0 ou 1 o digito é 0 caso contrário o digito é 11
         // menos o resultado anterior.
-        if (resto < 2)
+        if (resto < 2) {
             digito2 = 0;
-        else
+        } else
             digito2 = 11 - resto;
 
         // Digito verificador do CPF que está sendo validado.
-        String nDigVerific = cpf.substring(cpf.length() - 2, cpf.length());
+        String nDigVerific = cpf.substring(cpf.length() - 2);
 
         // Concatenando o primeiro resto com o segundo.
-        nDigResult = String.valueOf(digito1) + String.valueOf(digito2);
+        nDigResult = String.valueOf(digito1) + digito2;
 
         // comparar o digito verificador do cpf com o primeiro resto + o segundo
         // resto.
@@ -97,9 +98,9 @@ public class CpfCnpjValidator implements ConstraintValidator<CpfCnpj, String> {
         cnpj = cnpj.replace("-", "");
         cnpj = cnpj.replace("/", "");
 
-        try{
+        try {
             Long.parseLong(cnpj);
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
 
@@ -121,7 +122,7 @@ public class CpfCnpjValidator implements ConstraintValidator<CpfCnpj, String> {
                 // converte o i-ésimo caractere do CNPJ em um número: // por
                 // exemplo, transforma o caractere '0' no inteiro 0 // (48 eh a
                 // posição de '0' na tabela ASCII)
-                num = (int) (cnpj.charAt(i) - 48);
+                num = cnpj.charAt(i) - 48;
                 sm = sm + (num * peso);
                 peso = peso + 1;
                 if (peso == 10)
@@ -138,7 +139,7 @@ public class CpfCnpjValidator implements ConstraintValidator<CpfCnpj, String> {
             sm = 0;
             peso = 2;
             for (i = 12; i >= 0; i--) {
-                num = (int) (cnpj.charAt(i) - 48);
+                num = cnpj.charAt(i) - 48;
                 sm = sm + (num * peso);
                 peso = peso + 1;
                 if (peso == 10)
@@ -151,10 +152,7 @@ public class CpfCnpjValidator implements ConstraintValidator<CpfCnpj, String> {
                 dig14 = (char) ((11 - r) + 48);
             // Verifica se os dígitos calculados conferem com os dígitos
             // informados.
-            if ((dig13 == cnpj.charAt(12)) && (dig14 == cnpj.charAt(13)))
-                return (true);
-            else
-                return (false);
+            return (dig13 == cnpj.charAt(12)) && (dig14 == cnpj.charAt(13));
         } catch (InputMismatchException erro) {
             return (false);
         }
