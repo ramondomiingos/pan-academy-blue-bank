@@ -2,6 +2,8 @@ package com.panacademy.squad7.bluebank.exceptions;
 
 import com.panacademy.squad7.bluebank.exceptions.dtos.ApiExceptionsDTO;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -36,6 +38,8 @@ public class BlueBankRunTimeExceptionHandler extends ResponseEntityExceptionHand
   }
 
   @Override
+  @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content())
+  @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content())
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
       HttpStatus status, WebRequest request) {
     List<String> errors = ex.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());

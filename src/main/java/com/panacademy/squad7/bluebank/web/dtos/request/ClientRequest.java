@@ -2,7 +2,9 @@ package com.panacademy.squad7.bluebank.web.dtos.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.panacademy.squad7.bluebank.domain.enums.ClientType;
+import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import com.panacademy.squad7.bluebank.web.helpers.annotations.CpfCnpj;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -42,6 +44,9 @@ public class ClientRequest {
     @NotNull(message = "type must not be null")
     @Schema(enumAsRef = true)
     private ClientType type;
+
+    @Hidden
+    private StatusType status;
 
     @NotBlank(message = "registration must not be blank")
     @CpfCnpj
