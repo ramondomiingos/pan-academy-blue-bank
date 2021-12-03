@@ -42,6 +42,10 @@ public class AccountsController {
             @ApiResponse(responseCode = "404", description = "Client Not Found", content = @Content())
     })
     public ResponseEntity<AccountResponse> create(@Valid @RequestBody AccountRequest accountRequest) {
+        Long accountNumber = accountsService
+                .findMaxAccountNumberByAgencyNumberAndType(accountRequest.getAgencyNumber(), accountRequest.getType());
+        accountRequest.setAccountNumber(accountNumber + 1);
+
         Account account = accountConverter.toModel(accountRequest);
         account.setClient(clientsService.findById(accountRequest.getClientId()));
         return ResponseEntity
