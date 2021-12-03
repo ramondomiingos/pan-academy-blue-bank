@@ -61,8 +61,11 @@ public class TransactionsController {
     public ResponseEntity<TransactionResponse> deposit(@Valid @RequestBody DepositRequest depositRequest) {
         Transaction transaction = transactionConverter.toModel(depositRequest);
         transaction.setDestinationAccount(accountsService
-                .findByAgencyNumberAndAccountNumber(depositRequest.getAgencyNumber(), depositRequest.getAccountNumber())
-        );
+                .findByAgencyNumberAndAccountNumberAndType(
+                        depositRequest.getAgencyNumber(),
+                        depositRequest.getAccountNumber(),
+                        depositRequest.getAccountType()));
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(transactionConverter.toResponse(transactionsService.deposit(transaction)));
@@ -94,8 +97,11 @@ public class TransactionsController {
         Transaction transaction = transactionConverter.toModel(transferRequest);
         transaction.setOriginAccount(accountsService.findById(idAccount));
         transaction.setDestinationAccount(accountsService
-                .findByAgencyNumberAndAccountNumber(transferRequest.getAgencyNumber(), transferRequest.getAccountNumber())
-        );
+                .findByAgencyNumberAndAccountNumberAndType(
+                        transferRequest.getAgencyNumber(),
+                        transferRequest.getAccountNumber(),
+                        transferRequest.getAccountType()));
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(transactionConverter.toResponse(transactionsService.transfer(transaction)));

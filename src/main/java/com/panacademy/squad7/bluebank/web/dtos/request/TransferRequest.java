@@ -1,5 +1,6 @@
 package com.panacademy.squad7.bluebank.web.dtos.request;
 
+import com.panacademy.squad7.bluebank.domain.enums.AccountType;
 import com.panacademy.squad7.bluebank.domain.enums.TransactionType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -22,6 +23,10 @@ public class TransferRequest {
     @Schema(example = "0")
     @NotNull(message = "accountDigit must not be null")
     private Character accountDigit;
+
+    @NotNull(message = "type must not be null")
+    @Schema(enumAsRef = true)
+    private AccountType accountType;
 
     @Positive(message = "amount must not be negative")
     @DecimalMin(value = "0.01", message = "the amount value must be greater than 0.01")

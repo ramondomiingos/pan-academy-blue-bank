@@ -1,5 +1,6 @@
 package com.panacademy.squad7.bluebank.services.impl;
 
+import com.panacademy.squad7.bluebank.domain.enums.AccountType;
 import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import com.panacademy.squad7.bluebank.domain.models.Account;
 import com.panacademy.squad7.bluebank.domain.repositories.AccountsRepository;
@@ -61,9 +62,15 @@ public class AccountsServiceImpl implements AccountsService {
     }
 
     @Override
-    public Account findByAgencyNumberAndAccountNumber(Long agencyNumber, Long accountNumber) {
-        return accountsRepository.findByAgencyNumberAndAccountNumber(agencyNumber, accountNumber)
+    public Account findByAgencyNumberAndAccountNumberAndType(Long agencyNumber, Long accountNumber, AccountType type) {
+        return accountsRepository.findByAgencyNumberAndAccountNumberAndType(agencyNumber, accountNumber, type)
                 .orElseThrow(() -> new ContentNotFoundException(
-                        "account not found in agency " + agencyNumber + " with account " + accountNumber));
+                        "account not found in agency " + agencyNumber + " with account " + accountNumber + " for type " + type));
+    }
+
+    @Override
+    public Long findMaxAccountNumberByAgencyNumberAndType(Long agencyNumber, AccountType type) {
+        return accountsRepository.findMaxAccountNumberByAgencyNumberAndType(agencyNumber,type)
+                .orElse(0L);
     }
 }
