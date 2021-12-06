@@ -22,6 +22,8 @@ public class AccountsServiceImpl implements AccountsService {
 
     @Override
     public Account create(Account account) {
+        account = accountsRepository.save(account);
+        account.setAccountDigit(digitAccountCalculate(account.getId()));
         return accountsRepository.save(account);
     }
 
@@ -72,5 +74,25 @@ public class AccountsServiceImpl implements AccountsService {
     public Long findMaxAccountNumberByAgencyNumberAndType(Long agencyNumber, AccountType type) {
         return accountsRepository.findMaxAccountNumberByAgencyNumberAndType(agencyNumber,type)
                 .orElse(0L);
+    }
+
+    public char digitAccountCalculate( Long numberAccount){
+        String completeNumberAccount = String.format("%09d", numberAccount);
+        int[] multipliers = {2,9,8,7,6,5,4,3,2,9,8,7};
+        int number;
+        int sum = 0;
+        for (int i = 0; i < completeNumberAccount.length(); i++){
+            number  = Character.getNumericValue(completeNumberAccount.charAt(i));
+            sum = sum+ (number * multipliers[i]);
+        }
+        int quotient = sum /11;
+        quotient = quotient * 11;
+        int difference = sum - quotient;
+        int digit = 11 - difference;
+        if(digit  > 9 || digit == 0 ){
+             return '1';
+        }else{
+            return Character.forDigit( digit, 10);
+        }
     }
 }
