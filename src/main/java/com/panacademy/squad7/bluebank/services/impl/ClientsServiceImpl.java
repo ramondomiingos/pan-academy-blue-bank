@@ -21,6 +21,7 @@ public class ClientsServiceImpl implements ClientsService {
 
     @Override
     public Client create(Client client) {
+        client.setStatus(StatusType.A);
         return clientsRepository.save(client);
     }
 
@@ -34,12 +35,19 @@ public class ClientsServiceImpl implements ClientsService {
     }
 
     @Override
-    public void delete(Long id) {
-        if (clientsRepository.existsById(id)) {
-            clientsRepository.deleteById(id);
-        } else {
-            throw new ContentNotFoundException("client not found with id " + id);
-        }
+    public void softDelete(Long id) {
+        clientsRepository.findById(id).map(account -> {
+            account.setStatus(StatusType.C);
+            return clientsRepository.save(account);
+        }).orElseThrow(() -> new ContentNotFoundException("client not found with id " + id));
+    }
+
+    @Override
+    public void softBlock(Long id) {
+        clientsRepository.findById(id).map(account -> {
+            account.setStatus(StatusType.B);
+            return clientsRepository.save(account);
+        }).orElseThrow(() -> new ContentNotFoundException("client not found with id " + id));
     }
 
     @Override
