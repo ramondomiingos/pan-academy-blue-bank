@@ -10,7 +10,9 @@ public interface ClientsService {
 
     Client update(Client client, Long id);
 
-    void delete(Long id);
+    void softDelete(Long id);
+
+    void softBlock(Long id);
 
     Client findById(Long id);
 

@@ -105,7 +105,7 @@ public class ClientsController {
             @ApiResponse(responseCode = "404", description = "Client Not Found", content = @Content())
     }, parameters = {@Parameter(name = "id", description = "Id of the client for search")})
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        clientsService.delete(id);
+        clientsService.softDelete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
