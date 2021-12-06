@@ -90,10 +90,9 @@ public class AccountsServiceImpl implements AccountsService {
         int difference = sum - quotient;
         int digit = 11 - difference;
         if(digit  > 9 || digit == 0 ){
-             return (char)1 ;
+             return '1';
         }else{
-            return (char) digit ;
+            return Character.forDigit( digit, 10);
         }
-
     }
 }
