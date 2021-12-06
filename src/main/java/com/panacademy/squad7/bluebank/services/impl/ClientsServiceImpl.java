@@ -1,7 +1,9 @@
 package com.panacademy.squad7.bluebank.services.impl;
 
 import com.panacademy.squad7.bluebank.domain.enums.StatusType;
+import com.panacademy.squad7.bluebank.domain.models.Account;
 import com.panacademy.squad7.bluebank.domain.models.Client;
+import com.panacademy.squad7.bluebank.domain.repositories.AccountsRepository;
 import com.panacademy.squad7.bluebank.domain.repositories.ClientsRepository;
 import com.panacademy.squad7.bluebank.exceptions.ContentNotFoundException;
 import com.panacademy.squad7.bluebank.services.ClientsService;
@@ -14,8 +16,10 @@ import java.util.stream.Collectors;
 public class ClientsServiceImpl implements ClientsService {
 
     private final ClientsRepository clientsRepository;
+    private final AccountsRepository accountsRepository;
 
-    public ClientsServiceImpl(ClientsRepository clientsRepository) {
+    public ClientsServiceImpl(ClientsRepository clientsRepository, AccountsRepository accountsRepository) {
+        this.accountsRepository = accountsRepository;
         this.clientsRepository = clientsRepository;
     }
 
@@ -36,17 +40,21 @@ public class ClientsServiceImpl implements ClientsService {
 
     @Override
     public void softDelete(Long id) {
-        clientsRepository.findById(id).map(account -> {
-            account.setStatus(StatusType.C);
-            return clientsRepository.save(account);
+        clientsRepository.findById(id).map(client -> {
+            client.setStatus(StatusType.C);
+            List<Account> accounts = client.getAccounts();
+            accounts.forEach(account ->{ account.setStatus(StatusType.C);
+                accountsRepository.save(account);
+            });
+            return clientsRepository.save(client);
         }).orElseThrow(() -> new ContentNotFoundException("client not found with id " + id));
     }
 
     @Override
     public void softBlock(Long id) {
-        clientsRepository.findById(id).map(account -> {
-            account.setStatus(StatusType.B);
-            return clientsRepository.save(account);
+        clientsRepository.findById(id).map(client -> {
+            client.setStatus(StatusType.B);
+            return clientsRepository.save(client);
         }).orElseThrow(() -> new ContentNotFoundException("client not found with id " + id));
     }
 
