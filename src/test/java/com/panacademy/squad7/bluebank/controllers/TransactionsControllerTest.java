@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.panacademy.squad7.bluebank.domain.enums.AccountType;
 import com.panacademy.squad7.bluebank.domain.enums.ClientType;
 import com.panacademy.squad7.bluebank.domain.enums.TransactionType;
 import com.panacademy.squad7.bluebank.web.dtos.request.ClientRequest;
@@ -60,7 +61,8 @@ public class TransactionsControllerTest {
         depositRequest.setAgencyNumber(1234l);
         depositRequest.setAccountNumber(12345678l);
         depositRequest.setAccountDigit('x');
-        depositRequest.setAmount(BigDecimal.valueOf(1000l));    
+        depositRequest.setAmount(BigDecimal.valueOf(1000l));
+        depositRequest.setAccountType(AccountType.SA);;
               
         transferRequest = new TransferRequest();
         transferRequest.setAgencyNumber(1234l);
@@ -68,10 +70,11 @@ public class TransactionsControllerTest {
         transferRequest.setAccountDigit('x');
         transferRequest.setAmount(BigDecimal.valueOf(50l));
         transferRequest.setType(TransactionType.PIX);
+        transferRequest.setAccountType(AccountType.SA);;
         
         withdrawRequest = new WithdrawRequest();
         withdrawRequest.setAmount(BigDecimal.valueOf(50l));
-        withdrawRequest.setType(TransactionType.PIX);  
+        withdrawRequest.setType(TransactionType.PIX);    
     }
     
     @Test
@@ -86,7 +89,7 @@ public class TransactionsControllerTest {
     
     @Test
     @Order(2)
-    public void whenPostTransactionsDeposit_thenStatus201() throws Exception {
+    public void whenPostTransactionsDeposit_thenStatus201() throws Exception { 
     	MvcResult result = mockMvc.perform(get("/accounts/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() !=200){
             AccountsControllerTest cTest =  new AccountsControllerTest(mockMvc, objectMapper);
@@ -102,7 +105,12 @@ public class TransactionsControllerTest {
     
     @Test
     @Order(3)
-    public void whenPostTransactionsTransferById_thenStatus201() throws Exception {
+    public void whenPostTransactionsTransferById_thenStatus201() throws Exception { 
+        	MvcResult result = mockMvc.perform(get("/accounts/{id}", 1)).andReturn();
+            if (result.getResponse().getStatus() !=200){
+                AccountsControllerTest cTest =  new AccountsControllerTest(mockMvc, objectMapper);
+                cTest.whenPostAccounts_thenStatus201();
+            }
     	mockMvc.perform(post("/transactions/transfer/{idAccount}", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(transferRequest)))
