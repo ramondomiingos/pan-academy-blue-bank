@@ -59,18 +59,18 @@ public class TransactionsControllerTest {
        this.objectMapper = objectMapper;
         depositRequest = new DepositRequest();
         depositRequest.setAgencyNumber(1234l);
-        depositRequest.setAccountNumber(12345678l);
+        depositRequest.setAccountNumber(1l);
         depositRequest.setAccountDigit('x');
         depositRequest.setAmount(BigDecimal.valueOf(1000l));
-        depositRequest.setAccountType(AccountType.SA);;
+        depositRequest.setAccountType(AccountType.CA);;
               
         transferRequest = new TransferRequest();
         transferRequest.setAgencyNumber(1234l);
-        transferRequest.setAccountNumber(12345678l);
+        transferRequest.setAccountNumber(1l);
         transferRequest.setAccountDigit('x');
         transferRequest.setAmount(BigDecimal.valueOf(50l));
         transferRequest.setType(TransactionType.PIX);
-        transferRequest.setAccountType(AccountType.SA);;
+        transferRequest.setAccountType(AccountType.CA);;
         
         withdrawRequest = new WithdrawRequest();
         withdrawRequest.setAmount(BigDecimal.valueOf(50l));
@@ -89,12 +89,22 @@ public class TransactionsControllerTest {
     
     @Test
     @Order(2)
-    public void whenPostTransactionsDeposit_thenStatus201() throws Exception { 
-    	MvcResult result = mockMvc.perform(get("/accounts/{id}", 1)).andReturn();
+    public void whenPostTransactionsDeposit_thenStatus201() throws Exception {
+        MvcResult result = mockMvc.perform(get("/clients/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() !=200){
-            AccountsControllerTest cTest =  new AccountsControllerTest(mockMvc, objectMapper);
-            cTest.whenPostAccounts_thenStatus201();
+            ClientsControllerTest cTest =  new ClientsControllerTest(mockMvc, objectMapper);
+            cTest.whenPostClients_thenStatus201();
         }
+        result = mockMvc.perform(get("/clients/{id}", 1)).andReturn();
+
+        result = mockMvc.perform(get("/accounts/{id}", 1)).andReturn();
+        if (result.getResponse().getStatus() !=200){
+            AccountsControllerTest cTest1 =  new AccountsControllerTest(mockMvc, objectMapper);
+            cTest1.whenPostAccounts_thenStatus201();
+        }
+        result = mockMvc.perform(get("/accounts/{id}", 1)).andReturn();
+
+
     	mockMvc.perform(post("/transactions/deposit")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(depositRequest)))

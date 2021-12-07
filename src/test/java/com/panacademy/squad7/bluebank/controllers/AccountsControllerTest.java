@@ -44,7 +44,7 @@ public class AccountsControllerTest {
        this.objectMapper = objectMapper;
        accountRequest = new AccountRequest();
        accountRequest.setAgencyNumber(1234l);
-       accountRequest.setAccountNumber(12345678l);
+       accountRequest.setAccountNumber(1l);
        accountRequest.setAccountDigit('x');
        accountRequest.setBalance(BigDecimal.valueOf(1000l));
        accountRequest.setType(AccountType.CA);
