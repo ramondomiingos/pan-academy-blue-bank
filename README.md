@@ -1,4 +1,5 @@
 # BancoPan_GamaAulas_Projeto Final
+![workflowStatus](https://github.com/ramondomiingos/pan-academy-blue-bank/actions/workflows/main.yml/badge.svg)
 <p align="center">
   <a href="https://bancopan.corporate.gama.academy/" target="_blank">
     <img align="center" width="300" src="https://github.com/Paulo-Ultra/Banco_Pan_Training/blob/main/Imagem%20Banco%20Pan.png" style="max-width:100%;">
