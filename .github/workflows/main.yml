@@ -31,14 +31,15 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      #Run Tests
-      - name: Run Tests
-        run: mvn -B test
-      #Verificação de cobertura de codigo, para o badage
+         #Verificação de cobertura de codigo, para o badage
       - name: Upload coverage to Codecov  
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+      #Run Tests
+      - name: Run Tests
+        run: mvn -B test
+ 
   #Build's job
   build:
     #Depends on sonar's job
