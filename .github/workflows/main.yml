@@ -34,6 +34,11 @@ jobs:
       #Run Tests
       - name: Run Tests
         run: mvn -B test
+      #Verificação de cobertura de codigo, para o badage
+      - name: Upload coverage to Codecov  
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
   #Build's job
   build:
     #Depends on sonar's job
