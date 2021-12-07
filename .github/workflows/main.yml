@@ -32,10 +32,13 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
          #Verificação de cobertura de codigo, para o badage
-      - name: Upload coverage to Codecov  
-        uses: codecov/codecov-action@v1
+      - name: Upload XML report to Codecov
+        uses: codecov/codecov-action@v2
         with:
+          name: PlayMode
+          flags: automated
           token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage-results/**/*.xml
       #Run Tests
       - name: Run Tests
         run: mvn -B test
