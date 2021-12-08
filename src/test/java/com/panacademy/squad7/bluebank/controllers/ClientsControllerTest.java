@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @WithMockUser(username = "test", authorities = {"ROLE_USER", "ROLE_ADMIN"})
-public class ClientsControllerTest {
+class ClientsControllerTest {
 
     private final MockMvc mockMvc;
 
@@ -52,7 +52,7 @@ public class ClientsControllerTest {
 
     @Test
     @Order(1)
-    public void whenGetClients_thenStatus200() throws Exception {
+    void whenGetClients_thenStatus200() throws Exception {
         mockMvc.perform(get("/clients")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -62,7 +62,7 @@ public class ClientsControllerTest {
 
     @Test
     @Order(2)
-    public void whenPostClients_thenStatus201() throws Exception {
+    void whenPostClients_thenStatus201() throws Exception {
         MvcResult result = mockMvc.perform(get("/clients/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() != 200) {
             mockMvc.perform(post("/clients")
@@ -77,7 +77,7 @@ public class ClientsControllerTest {
 
     @Test
     @Order(3)
-    public void whenGetClientById_thenStatus200() throws Exception {
+    void whenGetClientById_thenStatus200() throws Exception {
         mockMvc.perform(get("/clients/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -89,7 +89,7 @@ public class ClientsControllerTest {
 
     @Test
     @Order(4)
-    public void whenPutClients_thenStatus201() throws Exception {
+    void whenPutClients_thenStatus201() throws Exception {
         clientRequest.setName("Sicrano");
         mockMvc.perform(put("/clients/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -102,7 +102,7 @@ public class ClientsControllerTest {
 
     @Test
     @Order(5)
-    public void whenPostClients_thenStatus400() throws Exception {
+    void whenPostClients_thenStatus400() throws Exception {
         clientRequest.setPhone("9999999999999999");
         mockMvc.perform(post("/clients")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -116,7 +116,7 @@ public class ClientsControllerTest {
 
     @Test
     @Order(6)
-    public void whenPutClients_thenStatus404() throws Exception {
+    void whenPutClients_thenStatus404() throws Exception {
         clientRequest.setPhone("11867543217");
         mockMvc.perform(put("/clients/{id}", 100)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -144,7 +144,7 @@ public class ClientsControllerTest {
 
     @Test
     @Order(8)
-    public void whenGetClientById_thenStatus404() throws Exception {
+    void whenGetClientById_thenStatus404() throws Exception {
         mockMvc.perform(get("/clients/{id}", 100)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
@@ -157,7 +157,7 @@ public class ClientsControllerTest {
 
     @Test
     @Order(9)
-    public void whenDeleteClients_thenStatus404() throws Exception {
+    void whenDeleteClients_thenStatus404() throws Exception {
         mockMvc.perform(delete("/clients/{id}", 100)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
@@ -169,7 +169,7 @@ public class ClientsControllerTest {
 
     @Test
     @Order(10)
-    public void whenDeleteClients_thenStatus204() throws Exception {
+    void whenDeleteClients_thenStatus204() throws Exception {
         MvcResult result = mockMvc.perform(get("/clients/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() != 200) {
             mockMvc.perform(delete("/clients/{id}", 1)

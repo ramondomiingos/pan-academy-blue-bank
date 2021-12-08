@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @WithMockUser(username = "test", authorities = {"ROLE_USER", "ROLE_ADMIN"})
-public class AddressesControllerTest {
+class AddressesControllerTest {
 
     private final MockMvc mockMvc;
 
@@ -43,7 +43,7 @@ public class AddressesControllerTest {
 
     @Test
     @Order(1)
-    public void whenGetAddresses_thenStatus200() throws Exception {
+    void whenGetAddresses_thenStatus200() throws Exception {
         mockMvc.perform(get("/addresses")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -53,7 +53,7 @@ public class AddressesControllerTest {
 
     @Test
     @Order(2)
-    public void whenPostAddresses_thenStatus201() throws Exception {
+    void whenPostAddresses_thenStatus201() throws Exception {
         MvcResult result = mockMvc.perform(get("/clients/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() != 200) {
             ClientsControllerTest cTest = new ClientsControllerTest(mockMvc, objectMapper);
@@ -69,7 +69,7 @@ public class AddressesControllerTest {
 
     @Test
     @Order(3)
-    public void whenGetAddressesById_thenStatus200() throws Exception {
+    void whenGetAddressesById_thenStatus200() throws Exception {
         mockMvc.perform(get("/addresses/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -79,7 +79,7 @@ public class AddressesControllerTest {
 
     @Test
     @Order(4)
-    public void whenPutAddresses_thenStatus201() throws Exception {
+    void whenPutAddresses_thenStatus201() throws Exception {
         addressRequest.setAddress("Avenida Rio de Janeiro");
         mockMvc.perform(put("/addresses/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -92,7 +92,7 @@ public class AddressesControllerTest {
 
     @Test
     @Order(5)
-    public void whenPostAddresses_thenStatus400() throws Exception {
+    void whenPostAddresses_thenStatus400() throws Exception {
         addressRequest.setState("AAA");
         mockMvc.perform(post("/addresses")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -106,7 +106,7 @@ public class AddressesControllerTest {
 
     @Test
     @Order(6)
-    public void whenPostAddresses_thenStatus404() throws Exception {
+    void whenPostAddresses_thenStatus404() throws Exception {
         addressRequest.setClientId(2l);
         addressRequest.setState("SP");
         mockMvc.perform(post("/addresses")
@@ -121,7 +121,7 @@ public class AddressesControllerTest {
 
     @Test
     @Order(7)
-    public void whenGetAddressesById_thenStatus404() throws Exception {
+    void whenGetAddressesById_thenStatus404() throws Exception {
         mockMvc.perform(get("/addresses/{id}", 100)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(addressRequest)))
@@ -134,7 +134,7 @@ public class AddressesControllerTest {
 
     @Test
     @Order(8)
-    public void whenPutAddresses_thenStatus404() throws Exception {
+    void whenPutAddresses_thenStatus404() throws Exception {
         addressRequest.setAddress("Avenida Brasília");
         addressRequest.setClientId(1l);
         mockMvc.perform(put("/addresses/{id}", 100)
@@ -149,7 +149,7 @@ public class AddressesControllerTest {
 
     @Test
     @Order(9)
-    public void whenDeleteAddresses_thenStatus404() throws Exception {
+    void whenDeleteAddresses_thenStatus404() throws Exception {
         mockMvc.perform(delete("/addresses/{id}", 100)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
@@ -161,7 +161,7 @@ public class AddressesControllerTest {
 
     @Test
     @Order(10)
-    public void whenDeleteAddresses_thenStatus204() throws Exception {
+    void whenDeleteAddresses_thenStatus204() throws Exception {
         mockMvc.perform(delete("/addresses/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
