@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @WithMockUser(username = "test", authorities = {"ROLE_USER", "ROLE_ADMIN"})
-public class AccountsControllerTest {
+class AccountsControllerTest {
 
     private final MockMvc mockMvc;
 
@@ -43,7 +43,7 @@ public class AccountsControllerTest {
 
     @Test
     @Order(1)
-    public void whenGetAccounts_thenStatus200() throws Exception {
+     void whenGetAccounts_thenStatus200() throws Exception {
         mockMvc.perform(get("/accounts")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -53,7 +53,7 @@ public class AccountsControllerTest {
 
     @Test
     @Order(2)
-    public void whenPostAccount_thenStatus201() throws Exception {
+     void whenPostAccount_thenStatus201() throws Exception {
         MvcResult result = mockMvc.perform(get("/clients/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() != 200) {
             ClientsControllerTest cTest = new ClientsControllerTest(mockMvc, objectMapper);
@@ -69,7 +69,7 @@ public class AccountsControllerTest {
 
     @Test
     @Order(3)
-    public void whenGetAccountsById_thenStatus200() throws Exception {
+    void whenGetAccountsById_thenStatus200() throws Exception {
         mockMvc.perform(get("/accounts/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -79,7 +79,7 @@ public class AccountsControllerTest {
 
     @Test
     @Order(4)
-    public void whenGetAccountsByIdExtract_thenStatus200() throws Exception {
+    void whenGetAccountsByIdExtract_thenStatus200() throws Exception {
         mockMvc.perform(get("/accounts/{id}/extract", 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -89,7 +89,7 @@ public class AccountsControllerTest {
 
     @Test
     @Order(5)
-    public void whenPostAccounts_thenStatus400() throws Exception {
+    void whenPostAccounts_thenStatus400() throws Exception {
         accountRequest.setAgencyNumber(12345l);
         mockMvc.perform(post("/accounts")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -103,7 +103,7 @@ public class AccountsControllerTest {
 
     @Test
     @Order(6)
-    public void whenPostAccounts_thenStatus404() throws Exception {
+    void whenPostAccounts_thenStatus404() throws Exception {
         accountRequest.setClientId(2l);
         accountRequest.setAgencyNumber(1234l);
         mockMvc.perform(post("/accounts")
@@ -118,7 +118,7 @@ public class AccountsControllerTest {
 
     @Test
     @Order(7)
-    public void whenGetAccountsById_thenStatus404() throws Exception {
+    void whenGetAccountsById_thenStatus404() throws Exception {
         mockMvc.perform(get("/accounts/{id}", 100)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(accountRequest)))
@@ -131,7 +131,7 @@ public class AccountsControllerTest {
 
     @Test
     @Order(8)
-    public void whenGetAccountsByIdExtract_thenStatus404() throws Exception {
+    void whenGetAccountsByIdExtract_thenStatus404() throws Exception {
         mockMvc.perform(get("/accounts/{id}/extract", 100)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(accountRequest)))
