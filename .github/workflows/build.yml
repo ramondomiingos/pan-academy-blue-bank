@@ -1,22 +1,20 @@
-name: Build
+name: SonarCloud
 on:
-  # Trigger analysis when pushing in master or pull requests, and when creating
-  # a pull request.
   push:
     branches:
       - master
       - develop
-  pull_request:
-      types: [opened, synchronize, reopened]
 jobs:
-  sonarcloud:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-16.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v1
+    - name: Set up JDK
+      uses: actions/setup-java@v1
       with:
-        fetch-depth: 0
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
+        java-version: '11'
+    - name: Analyze with SonarCloud
+      run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=ramondomiingos_pan-academy-blue-bank -Dsonar.organization=ramondomiingos -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
