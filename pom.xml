@@ -14,8 +14,6 @@
     <description>blue-bank</description>
     <properties>
         <java.version>11</java.version>
-        <sonar.organization>ramondomiingos</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
     <dependencies>
         <dependency>
