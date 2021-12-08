@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClientsServiceImpl implements ClientsService {
-
+    public static final String NOT_FOUND_MESSAGE ="client not found with id ";
     private final ClientsRepository clientsRepository;
     private final AccountsRepository accountsRepository;
 
@@ -35,7 +35,7 @@ public class ClientsServiceImpl implements ClientsService {
             client.setId(id);
             client.setRegistration(c.getRegistration());
             return clientsRepository.save(client);
-        }).orElseThrow(() -> new ContentNotFoundException("client not found with id " + id));
+        }).orElseThrow(() -> new ContentNotFoundException( NOT_FOUND_MESSAGE + id));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ClientsServiceImpl implements ClientsService {
                 accountsRepository.save(account);
             });
             return clientsRepository.save(client);
-        }).orElseThrow(() -> new ContentNotFoundException("client not found with id " + id));
+        }).orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override
@@ -55,13 +55,13 @@ public class ClientsServiceImpl implements ClientsService {
         clientsRepository.findById(id).map(client -> {
             client.setStatus(StatusType.B);
             return clientsRepository.save(client);
-        }).orElseThrow(() -> new ContentNotFoundException("client not found with id " + id));
+        }).orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override
     public Client findById(Long id) {
         return clientsRepository.findById(id)
-                .orElseThrow(() -> new ContentNotFoundException("client not found with id " + id));
+                .orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override
