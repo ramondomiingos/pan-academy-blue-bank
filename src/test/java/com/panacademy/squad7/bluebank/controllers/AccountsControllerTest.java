@@ -85,7 +85,7 @@ class AccountsControllerTest {
     @Test
     @Order(4)
     void whenPutAccountsById_thenStatus201() throws Exception {
-        accountRequestUpdate.setStatus(StatusType.B);
+        accountRequestUpdate.setStatus(StatusType.A);
         mockMvc.perform(put("/accounts/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(accountRequestUpdate)))
