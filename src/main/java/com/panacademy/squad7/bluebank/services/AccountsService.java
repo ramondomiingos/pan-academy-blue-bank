@@ -12,8 +12,6 @@ public interface AccountsService {
 
     void softDelete(Long id);
 
-    void softBlock(Long id);
-
     Account findById(Long id);
 
     List<Account> findAll();

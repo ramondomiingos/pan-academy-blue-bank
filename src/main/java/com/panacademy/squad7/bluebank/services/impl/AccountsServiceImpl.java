@@ -30,8 +30,8 @@ public class AccountsServiceImpl implements AccountsService {
     @Override
     public Account update(Account account, Long id) {
         return accountsRepository.findById(id).map(a -> {
-            account.setId(id);
-            return accountsRepository.save(account);
+            a.setStatus(account.getStatus());
+            return accountsRepository.save(a);
         }).orElseThrow(() -> new ContentNotFoundException("account not found with id " + id));
     }
 
@@ -43,13 +43,6 @@ public class AccountsServiceImpl implements AccountsService {
         }).orElseThrow(() -> new ContentNotFoundException("account not found with id " + id));
     }
 
-    @Override
-    public void softBlock(Long id) {
-        accountsRepository.findById(id).map(account -> {
-            account.setStatus(StatusType.B);
-            return accountsRepository.save(account);
-        }).orElseThrow(() -> new ContentNotFoundException("account not found with id " + id));
-    }
 
     @Override
     public Account findById(Long id) {
