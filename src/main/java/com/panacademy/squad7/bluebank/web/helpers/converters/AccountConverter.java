@@ -46,11 +46,11 @@ public class AccountConverter {
     public Account toModel(AccountRequest accountRequest) {
         return Account.builder()
                 .agencyNumber(accountRequest.getAgencyNumber())
-                .accountNumber(accountRequest.getAccountNumber()!= null ? accountRequest.getAccountNumber(): null)
-                .accountDigit(accountRequest.getAccountDigit()!= null ? accountRequest.getAccountDigit(): '0')
-                .balance(accountRequest.getBalance()!= null ? accountRequest.getBalance(): BigDecimal.valueOf(0))
+                .accountNumber(accountRequest.getAccountNumber() != null ? accountRequest.getAccountNumber() : null)
+                .accountDigit(accountRequest.getAccountDigit() != null ? accountRequest.getAccountDigit() : '0')
+                .balance(accountRequest.getBalance() != null ? accountRequest.getBalance() : BigDecimal.valueOf(0))
                 .type(accountRequest.getType())
-                .status(accountRequest.getStatus()!= null ? accountRequest.getStatus(): StatusType.A)
+                .status(accountRequest.getStatus() != null ? accountRequest.getStatus() : StatusType.A)
                 .client(
                         accountRequest.getClientId() != null
                                 ? Client.builder().id(accountRequest.getClientId()).build()

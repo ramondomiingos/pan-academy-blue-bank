@@ -130,7 +130,7 @@ class ClientsControllerTest {
 
     @Test
     @Order(7)
-    public void whenPutClients_thenStatus400() throws Exception {
+    void whenPutClients_thenStatus400() throws Exception {
         clientRequest.setPhone("9999999999999999");
         mockMvc.perform(put("/clients/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
