@@ -1,10 +1,14 @@
 package com.panacademy.squad7.bluebank.web.controllers;
 
 import com.panacademy.squad7.bluebank.domain.models.Account;
+import com.panacademy.squad7.bluebank.domain.models.Address;
 import com.panacademy.squad7.bluebank.services.AccountsService;
 import com.panacademy.squad7.bluebank.services.ClientsService;
 import com.panacademy.squad7.bluebank.web.dtos.request.AccountRequest;
+import com.panacademy.squad7.bluebank.web.dtos.request.AccountRequestUpdate;
+import com.panacademy.squad7.bluebank.web.dtos.request.AddressRequest;
 import com.panacademy.squad7.bluebank.web.dtos.response.AccountResponse;
+import com.panacademy.squad7.bluebank.web.dtos.response.AddressResponse;
 import com.panacademy.squad7.bluebank.web.helpers.converters.AccountConverter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -81,6 +85,33 @@ public class AccountsController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(accountConverter.toExtractResponse(accountsService.findById(id)));
+    }
+    @DeleteMapping("{id}")
+    @Operation(summary = "Cancel an account", responses = {
+            @ApiResponse(responseCode = "204", description = "Deleted", content = @Content()),
+            @ApiResponse(responseCode = "404", description = "Address Not Found", content = @Content())
+    }, parameters = {@Parameter(name = "id", description = "Id of the account for search")})
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        accountsService.softDelete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update an account", responses = {
+            @ApiResponse(responseCode = "201", description = "Updated"),
+            @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content()),
+            @ApiResponse(responseCode = "404", description = "Account or Client Not Found", content = @Content())
+    }, parameters = {@Parameter(name = "id", description = "Id of the account for search")})
+
+    public ResponseEntity<AccountResponse> update(@PathVariable Long id, @Valid @RequestBody AccountRequestUpdate accountRequest) {
+
+        Account account = accountsService.findById(id);
+        account.setStatus(accountRequest.getStatus());
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(accountConverter.toResponse(accountsService.update(account, id)));
     }
 
 }
