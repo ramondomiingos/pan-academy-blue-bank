@@ -38,11 +38,6 @@ public class AccountsServiceImpl implements AccountsService {
 
     @Override
     public void softDelete(Long id) {
-        accountsRepository.findById(id).map(account -> {
-            account.setStatus(StatusType.C);
-            return accountsRepository.save(account);
-        }).orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
-
         Optional<Account> account = accountsRepository.findById(id);
         if (account.isPresent()) {
             Account a = account.get();
