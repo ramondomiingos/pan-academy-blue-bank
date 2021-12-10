@@ -2,11 +2,11 @@ package com.panacademy.squad7.bluebank.exceptions.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
-@Data
+@Getter
 public class ApiExceptionsDTO {
 
     private String message;

@@ -1,11 +1,13 @@
 package com.panacademy.squad7.bluebank.web.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Builder
+@AllArgsConstructor
 public class AddressResponse {
 
     private Long id;

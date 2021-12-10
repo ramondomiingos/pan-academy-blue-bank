@@ -4,13 +4,19 @@ import com.panacademy.squad7.bluebank.domain.enums.AccountType;
 import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountRequest {
 
     @Max(value = 9999, message = "must be between 1 and 4 characters")

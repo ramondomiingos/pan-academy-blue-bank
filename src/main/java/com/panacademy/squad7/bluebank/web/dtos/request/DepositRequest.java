@@ -2,12 +2,18 @@ package com.panacademy.squad7.bluebank.web.dtos.request;
 
 import com.panacademy.squad7.bluebank.domain.enums.AccountType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DepositRequest {
 
     @Min(value = 1, message = "agencyNumber must be different from 0")
