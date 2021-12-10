@@ -99,7 +99,17 @@ public class ClientsController {
                 .body(clientConverter.toResponse(clientsService.update(clientConverter.toModel(client), id)));
     }
 
-    @DeleteMapping("/{id}")
+    @PutMapping("/{id}/block")
+    @Operation(summary = "Delete a client", responses = {
+            @ApiResponse(responseCode = "204", description = "Deleted", content = @Content()),
+            @ApiResponse(responseCode = "404", description = "Client Not Found", content = @Content())
+    }, parameters = {@Parameter(name = "id", description = "Id of the client for search")})
+    public ResponseEntity<Void> block(@PathVariable Long id) {
+        clientsService.softBlock(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/{id}/delete")
     @Operation(summary = "Delete a client", responses = {
             @ApiResponse(responseCode = "204", description = "Deleted", content = @Content()),
             @ApiResponse(responseCode = "404", description = "Client Not Found", content = @Content())

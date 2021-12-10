@@ -153,11 +153,10 @@ class ClientsControllerTests {
                 .andExpect(jsonPath("$.message").value("client not found with id 100"));
     }
 
-
     @Test
     @Order(9)
-    void whenDeleteClients_thenStatus404() throws Exception {
-        mockMvc.perform(delete("/clients/{id}", 100)
+    void whenCancelClients_thenStatus404() throws Exception {
+        mockMvc.perform(put("/clients/{id}/delete", 100)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(content()
@@ -168,10 +167,10 @@ class ClientsControllerTests {
 
     @Test
     @Order(10)
-    void whenDeleteClients_thenStatus204() throws Exception {
+    void whenCancelClients_thenStatus204() throws Exception {
         MvcResult result = mockMvc.perform(get("/clients/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() != 200) {
-            mockMvc.perform(delete("/clients/{id}", 1)
+            mockMvc.perform(put("/clients/{id}/delete", 1)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(clientRequest)))
                     .andExpect(status().isNoContent());
@@ -180,6 +179,30 @@ class ClientsControllerTests {
 
     @Test
     @Order(11)
+    void whenBlockClients_thenStatus404() throws Exception {
+        mockMvc.perform(put("/clients/{id}/block", 100)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.message").value("client not found with id 100"));
+    }
+
+    @Test
+    @Order(12)
+    void whenBlockClients_thenStatus204() throws Exception {
+        MvcResult result = mockMvc.perform(get("/clients/{id}", 1)).andReturn();
+        if (result.getResponse().getStatus() != 200) {
+            mockMvc.perform(put("/clients/{id}/block", 1)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(clientRequest)))
+                    .andExpect(status().isNoContent());
+        }
+    }
+
+    @Test
+    @Order(13)
     void whenPostClient_thenStatus201() throws Exception {
         MvcResult result = mockMvc.perform(get("/clients/{id}", 2)).andReturn();
         if (result.getResponse().getStatus() != 200) {
