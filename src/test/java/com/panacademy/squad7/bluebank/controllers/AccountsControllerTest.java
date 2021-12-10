@@ -203,5 +203,9 @@ class AccountsControllerTest {
         mockMvc.perform(delete("/accounts/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+        accountUpdateRequest.setStatus(StatusType.A);
+        mockMvc.perform(put("/accounts/{id}", 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(accountUpdateRequest)));
     }
 }
