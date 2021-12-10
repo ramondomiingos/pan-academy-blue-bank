@@ -19,8 +19,11 @@ public class AddressConverter {
     public AddressResponse toResponse(Address address) {
         return AddressResponse.builder()
                 .id(address.getId())
-                .address(address.getAddress())
+                .street(address.getStreet())
                 .number(address.getAddressNumber())
+                .details(address.getDetails())
+                .neighborhood(address.getNeighborhood())
+                .zip(address.getZip())
                 .city(address.getCity())
                 .state(address.getState())
                 .clientId(address.getClient() != null ? address.getClient().getId() : null)
@@ -29,8 +32,11 @@ public class AddressConverter {
 
     public Address toModel(AddressRequest addressRequest) {
         return Address.builder()
-                .address(addressRequest.getAddress())
+                .street(addressRequest.getStreet())
                 .addressNumber(addressRequest.getNumber())
+                .details(addressRequest.getDetails())
+                .neighborhood(addressRequest.getNeighborhood())
+                .zip(addressRequest.getZip())
                 .city(addressRequest.getCity())
                 .state(addressRequest.getState())
                 .client(

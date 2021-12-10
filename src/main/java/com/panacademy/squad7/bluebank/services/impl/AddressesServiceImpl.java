@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class AddressesServiceImpl implements AddressesService {
-
+    public static final String NOT_FOUND_MESSAGE = "address not found with id ";
     private final AddressesRepository addressesRepository;
 
     public AddressesServiceImpl(AddressesRepository addressesRepository) {
@@ -30,7 +30,7 @@ public class AddressesServiceImpl implements AddressesService {
                 .findById(id).map(a -> {
                     address.setId(id);
                     return addressesRepository.save(isValidAddress(address));
-                }).orElseThrow(() -> new ContentNotFoundException("address not found with id " + id));
+                }).orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override
@@ -38,7 +38,7 @@ public class AddressesServiceImpl implements AddressesService {
         if (addressesRepository.existsById(id)) {
             addressesRepository.deleteById(id);
         } else {
-            throw new ContentNotFoundException("address not found with id " + id);
+            throw new ContentNotFoundException(NOT_FOUND_MESSAGE + id);
         }
     }
 
@@ -46,7 +46,7 @@ public class AddressesServiceImpl implements AddressesService {
     public Address findById(Long id) {
         return addressesRepository
                 .findById(id)
-                .orElseThrow(() -> new ContentNotFoundException("address not found with id " + id));
+                .orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override

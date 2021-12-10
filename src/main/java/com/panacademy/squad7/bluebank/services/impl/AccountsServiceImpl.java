@@ -9,11 +9,12 @@ import com.panacademy.squad7.bluebank.services.AccountsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class AccountsServiceImpl implements AccountsService {
-
+    public static final String NOT_FOUND_MESSAGE = "account not found with id ";
     private final AccountsRepository accountsRepository;
 
     public AccountsServiceImpl(AccountsRepository accountsRepository) {
@@ -32,7 +33,7 @@ public class AccountsServiceImpl implements AccountsService {
         return accountsRepository.findById(id).map(a -> {
             a.setStatus(account.getStatus());
             return accountsRepository.save(a);
-        }).orElseThrow(() -> new ContentNotFoundException("account not found with id " + id));
+        }).orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override
@@ -40,14 +41,23 @@ public class AccountsServiceImpl implements AccountsService {
         accountsRepository.findById(id).map(account -> {
             account.setStatus(StatusType.C);
             return accountsRepository.save(account);
-        }).orElseThrow(() -> new ContentNotFoundException("account not found with id " + id));
+        }).orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
+
+        Optional<Account> account = accountsRepository.findById(id);
+        if (account.isPresent()) {
+            Account a = account.get();
+            a.setStatus(StatusType.C);
+            accountsRepository.save(a);
+        } else {
+            throw new ContentNotFoundException(NOT_FOUND_MESSAGE + id);
+        }
     }
 
 
     @Override
     public Account findById(Long id) {
         return accountsRepository.findById(id)
-                .orElseThrow(() -> new ContentNotFoundException("account not found with id " + id));
+                .orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override

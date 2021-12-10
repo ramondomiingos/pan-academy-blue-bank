@@ -12,50 +12,50 @@ import java.util.List;
 
 @Service
 public class UsersServiceImpl implements UsersService {
-
-    private final UsersRepository UsersRepository;
+    public static final String NOT_FOUND_MESSAGE = "user not found with id ";
+    private final UsersRepository usersRepository;
 
     public UsersServiceImpl(UsersRepository UsersRepository) {
-        this.UsersRepository = UsersRepository;
+        this.usersRepository = UsersRepository;
     }
 
     @Override
-    public User create(User User) {
-        return UsersRepository.save(User);
+    public User create(User user) {
+        return usersRepository.save(user);
     }
 
 
     @Override
-    public User update(User User, Long id) {
-        return UsersRepository.findById(id).map(a -> {
-            User.setId(id);
-            return UsersRepository.save(User);
-        }).orElseThrow(() -> new ContentNotFoundException("User not found with id " + id));
+    public User update(User user, Long id) {
+        return usersRepository.findById(id).map(a -> {
+            user.setId(id);
+            return usersRepository.save(user);
+        }).orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override
     public void delete(Long id) {
-        if (UsersRepository.existsById(id)) {
-            UsersRepository.deleteById(id);
+        if (usersRepository.existsById(id)) {
+            usersRepository.deleteById(id);
         } else {
-            throw new ContentNotFoundException("User not found with id " + id);
+            throw new ContentNotFoundException(NOT_FOUND_MESSAGE + id);
         }
     }
 
     @Override
     public User findById(Long id) {
-        return UsersRepository.findById(id)
-                .orElseThrow(() -> new ContentNotFoundException("User not found with id " + id));
+        return usersRepository.findById(id)
+                .orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override
     public List<User> findAll() {
-        return UsersRepository.findAll();
+        return usersRepository.findAll();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return UsersRepository.findByUsername(username)
+        return usersRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
     }
 }

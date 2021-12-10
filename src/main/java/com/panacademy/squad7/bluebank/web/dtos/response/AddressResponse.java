@@ -12,9 +12,15 @@ public class AddressResponse {
 
     private Long id;
 
-    private String address;
+    private String street;
 
     private String number;
+
+    private String details;
+
+    private String neighborhood;
+
+    private String zip;
 
     private String city;
 
