@@ -2,7 +2,7 @@ name: Java CI with maven
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ master, develop ]
 
 jobs:
 
@@ -45,6 +45,12 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '11'
+    - name: Cache SonarCloud packages
+      uses: actions/cache@v1
+      with:
+        path: ~\sonar\cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
     - name: Cache Maven packages
       uses: actions/cache@v1
       with:
@@ -52,7 +58,7 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: Analyze with SonarCloud
-      run: mvn -B verify sonar:sonar -Dsonar.projectKey=ramondomiingos_pan-academy-blue-bank -Dsonar.organization=ramondomiingos -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+      run: mvn -B verify sonar:sonar -Dsonar.projectKey=ramondomiingos_pan-academy-blue-bank -Dsonar.organization=ramondomiingos -Dsonar.host.url=https://sonarcloud.io -Dsonar.coverage.jacoco.xmlReportPaths=${project.build.directory}/site/jacoco/jacoco.xml -Dsonar.login=$SONAR_TOKEN
   
   #Build's job
   build:
