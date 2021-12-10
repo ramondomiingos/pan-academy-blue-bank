@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @WithMockUser(username = "test", authorities = {"ROLE_USER", "ROLE_ADMIN"})
-class AccountsControllerTest {
+class AccountsControllerTests {
 
     private final MockMvc mockMvc;
 
@@ -35,7 +35,7 @@ class AccountsControllerTest {
     private final AccountUpdateRequest accountUpdateRequest;
 
     @Autowired
-    public AccountsControllerTest(MockMvc mockMvc, ObjectMapper objectMapper) {
+    public AccountsControllerTests(MockMvc mockMvc, ObjectMapper objectMapper) {
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
         accountRequest = new AccountRequest();
@@ -62,7 +62,7 @@ class AccountsControllerTest {
      void whenPostAccount_thenStatus201() throws Exception {
         MvcResult result = mockMvc.perform(get("/clients/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() != 200) {
-            ClientsControllerTest cTest = new ClientsControllerTest(mockMvc, objectMapper);
+            ClientsControllerTests cTest = new ClientsControllerTests(mockMvc, objectMapper);
             cTest.whenPostClients_thenStatus201();
         }
         mockMvc.perform(post("/accounts")

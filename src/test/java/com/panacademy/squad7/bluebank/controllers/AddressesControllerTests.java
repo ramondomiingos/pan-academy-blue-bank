@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @WithMockUser(username = "test", authorities = {"ROLE_USER", "ROLE_ADMIN"})
-class AddressesControllerTest {
+class AddressesControllerTests {
 
     private final MockMvc mockMvc;
 
@@ -30,7 +30,7 @@ class AddressesControllerTest {
     private final AddressRequest addressRequest;
 
     @Autowired
-    public AddressesControllerTest(MockMvc mockMvc, ObjectMapper objectMapper) {
+    public AddressesControllerTests(MockMvc mockMvc, ObjectMapper objectMapper) {
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
         addressRequest = new AddressRequest();
@@ -56,7 +56,7 @@ class AddressesControllerTest {
     void whenPostAddresses_thenStatus201() throws Exception {
         MvcResult result = mockMvc.perform(get("/clients/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() != 200) {
-            ClientsControllerTest cTest = new ClientsControllerTest(mockMvc, objectMapper);
+            ClientsControllerTests cTest = new ClientsControllerTests(mockMvc, objectMapper);
             cTest.whenPostClients_thenStatus201();
         }
         mockMvc.perform(post("/addresses")
@@ -107,7 +107,7 @@ class AddressesControllerTest {
     @Test
     @Order(6)
     void whenPostAddresses_thenStatus404() throws Exception {
-        addressRequest.setClientId(2l);
+        addressRequest.setClientId(100L);
         addressRequest.setState("SP");
         mockMvc.perform(post("/addresses")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -136,7 +136,7 @@ class AddressesControllerTest {
     @Order(8)
     void whenPutAddresses_thenStatus404() throws Exception {
         addressRequest.setAddress("Avenida Brasília");
-        addressRequest.setClientId(1l);
+        addressRequest.setClientId(1L);
         mockMvc.perform(put("/addresses/{id}", 100)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(addressRequest)))

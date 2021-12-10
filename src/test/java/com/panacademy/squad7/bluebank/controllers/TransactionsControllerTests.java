@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @WithMockUser(username = "test", authorities = {"ROLE_USER", "ROLE_ADMIN"})
-class TransactionsControllerTest {
+class TransactionsControllerTests {
 
     private final MockMvc mockMvc;
 
@@ -41,26 +41,26 @@ class TransactionsControllerTest {
     private final WithdrawRequest withdrawRequest;
 
     @Autowired
-    public TransactionsControllerTest(MockMvc mockMvc, ObjectMapper objectMapper) {
+    public TransactionsControllerTests(MockMvc mockMvc, ObjectMapper objectMapper) {
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
         depositRequest = new DepositRequest();
-        depositRequest.setAgencyNumber(1234l);
-        depositRequest.setAccountNumber(1l);
+        depositRequest.setAgencyNumber(1234L);
+        depositRequest.setAccountNumber(1L);
         depositRequest.setAccountDigit('9');
-        depositRequest.setAmount(BigDecimal.valueOf(1000l));
+        depositRequest.setAmount(BigDecimal.valueOf(1000L));
         depositRequest.setAccountType(AccountType.CA);
 
         transferRequest = new TransferRequest();
-        transferRequest.setAgencyNumber(1234l);
-        transferRequest.setAccountNumber(1l);
+        transferRequest.setAgencyNumber(1234L);
+        transferRequest.setAccountNumber(1L);
         transferRequest.setAccountDigit('9');
-        transferRequest.setAmount(BigDecimal.valueOf(50l));
+        transferRequest.setAmount(BigDecimal.valueOf(50L));
         transferRequest.setType(TransactionType.PIX);
         transferRequest.setAccountType(AccountType.CA);
 
         withdrawRequest = new WithdrawRequest();
-        withdrawRequest.setAmount(BigDecimal.valueOf(50l));
+        withdrawRequest.setAmount(BigDecimal.valueOf(50L));
         withdrawRequest.setType(TransactionType.PIX);
     }
 
@@ -79,7 +79,7 @@ class TransactionsControllerTest {
     void whenPostTransactionsDeposit_thenStatus201() throws Exception {
         MvcResult result = mockMvc.perform(get("/accounts/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() != 200) {
-            AccountsControllerTest aTest = new AccountsControllerTest(mockMvc, objectMapper);
+            AccountsControllerTests aTest = new AccountsControllerTests(mockMvc, objectMapper);
             aTest.whenPostAccount_thenStatus201();
         }
         mockMvc.perform(post("/transactions/deposit")
@@ -95,7 +95,7 @@ class TransactionsControllerTest {
     void whenPostTransactionsTransferById_thenStatus201() throws Exception {
         MvcResult result = mockMvc.perform(get("/accounts/{id}", 1)).andReturn();
         if (result.getResponse().getStatus() != 200) {
-            AccountsControllerTest aTest = new AccountsControllerTest(mockMvc, objectMapper);
+            AccountsControllerTests aTest = new AccountsControllerTests(mockMvc, objectMapper);
             aTest.whenPostAccount_thenStatus201();
         }
         mockMvc.perform(post("/transactions/transfer/{idAccount}", 1)
@@ -130,7 +130,7 @@ class TransactionsControllerTest {
     @Test
     @Order(6)
     void whenPostTransactionsDeposit_thenStatus400() throws Exception {
-        depositRequest.setAgencyNumber(12345l);
+        depositRequest.setAgencyNumber(12345L);
         mockMvc.perform(post("/transactions/deposit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositRequest)))
@@ -144,7 +144,7 @@ class TransactionsControllerTest {
     @Test
     @Order(7)
     void whenPostTransactionsTransferById_thenStatus400() throws Exception {
-        transferRequest.setAgencyNumber(12345l);
+        transferRequest.setAgencyNumber(12345L);
         mockMvc.perform(post("/transactions/transfer/{idAccount}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(transferRequest)))
@@ -185,7 +185,7 @@ class TransactionsControllerTest {
     @Test
     @Order(10)
     void whenPostTransactionsDeposit_thenStatus404() throws Exception {
-        depositRequest.setAgencyNumber(1235l);
+        depositRequest.setAgencyNumber(1235L);
         mockMvc.perform(post("/transactions/deposit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(depositRequest)))
@@ -198,7 +198,7 @@ class TransactionsControllerTest {
     @Test
     @Order(11)
     void whenPostTransactionsTransferById_thenStatus404() throws Exception {
-        transferRequest.setAgencyNumber(1235l);
+        transferRequest.setAgencyNumber(1235L);
         mockMvc.perform(post("/transactions/transfer/{idAccount}", 100)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(transferRequest)))
@@ -212,7 +212,7 @@ class TransactionsControllerTest {
     @Test
     @Order(12)
     void whenPostTransactionsWithdrawById_thenStatus404() throws Exception {
-        transferRequest.setAgencyNumber(1235l);
+        transferRequest.setAgencyNumber(1235L);
         mockMvc.perform(post("/transactions/withdraw/{idAccount}", 100)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(transferRequest)))

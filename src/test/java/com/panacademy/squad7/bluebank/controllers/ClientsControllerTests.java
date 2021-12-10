@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @WithMockUser(username = "test", authorities = {"ROLE_USER", "ROLE_ADMIN"})
-class ClientsControllerTest {
+class ClientsControllerTests {
 
     private final MockMvc mockMvc;
 
@@ -33,7 +33,7 @@ class ClientsControllerTest {
     private final ClientRequest clientRequest;
 
     @Autowired
-    public ClientsControllerTest(MockMvc mockMvc, ObjectMapper objectMapper) {
+    public ClientsControllerTests(MockMvc mockMvc, ObjectMapper objectMapper) {
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
 
@@ -72,7 +72,6 @@ class ClientsControllerTest {
                     .andExpect(content()
                             .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
         }
-
     }
 
     @Test
@@ -176,6 +175,23 @@ class ClientsControllerTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(clientRequest)))
                     .andExpect(status().isNoContent());
+        }
+    }
+
+    @Test
+    @Order(11)
+    void whenPostClient_thenStatus201() throws Exception {
+        MvcResult result = mockMvc.perform(get("/clients/{id}", 2)).andReturn();
+        if (result.getResponse().getStatus() != 200) {
+            clientRequest.setPhone("11867543217");
+            clientRequest.setEmail("fulano_emp@email.com");
+            clientRequest.setRegistration("07045281000148");
+            mockMvc.perform(post("/clients")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(clientRequest)))
+                    .andExpect(status().isCreated())
+                    .andExpect(content()
+                            .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
         }
     }
 }
