@@ -184,4 +184,24 @@ class AccountsControllerTest {
                         .andExpect(jsonPath("$.message").exists())
                         .andExpect(jsonPath("$.message").value("account not found with id 100"));
     }
+
+    @Test
+    @Order(12)
+    void whenDeleteAccountsById_thenStatus404() throws Exception {
+        mockMvc.perform(delete("/accounts/{id}", 100)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.message").value("account not found with id 100"));
+    }
+
+    @Test
+    @Order(13)
+    void whenDeleteAccounts_thenStatus204() throws Exception {
+        mockMvc.perform(delete("/accounts/{id}", 1)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
 }
