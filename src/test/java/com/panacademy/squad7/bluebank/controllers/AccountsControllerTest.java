@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.panacademy.squad7.bluebank.domain.enums.AccountType;
 import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import com.panacademy.squad7.bluebank.web.dtos.request.AccountRequest;
-import com.panacademy.squad7.bluebank.web.dtos.request.AccountRequestUpdate;
+import com.panacademy.squad7.bluebank.web.dtos.request.AccountUpdateRequest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,19 +32,19 @@ class AccountsControllerTest {
 
     private final AccountRequest accountRequest;
 
-    private final AccountRequestUpdate accountRequestUpdate;
+    private final AccountUpdateRequest accountUpdateRequest;
 
     @Autowired
     public AccountsControllerTest(MockMvc mockMvc, ObjectMapper objectMapper) {
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
         accountRequest = new AccountRequest();
-        accountRequest.setAgencyNumber(1234l);
+        accountRequest.setAgencyNumber(1234L);
         accountRequest.setType(AccountType.CA);
         accountRequest.setClientId(1L);
 
-        accountRequestUpdate = new AccountRequestUpdate();
-        accountRequestUpdate.setStatus(StatusType.A);
+        accountUpdateRequest = new AccountUpdateRequest();
+        accountUpdateRequest.setStatus(StatusType.A);
     }
 
     @Test
@@ -85,10 +85,10 @@ class AccountsControllerTest {
     @Test
     @Order(4)
     void whenPutAccountsById_thenStatus201() throws Exception {
-        accountRequestUpdate.setStatus(StatusType.A);
+        accountUpdateRequest.setStatus(StatusType.A);
         mockMvc.perform(put("/accounts/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(accountRequestUpdate)))
+                        .content(objectMapper.writeValueAsString(accountUpdateRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
@@ -97,7 +97,7 @@ class AccountsControllerTest {
     @Test
     @Order(5)
     void whenGetAccountsByIdExtract_thenStatus200() throws Exception {
-        accountRequestUpdate.setStatus(StatusType.A);
+        accountUpdateRequest.setStatus(StatusType.A);
         mockMvc.perform(get("/accounts/{id}/extract", 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -108,7 +108,7 @@ class AccountsControllerTest {
     @Test
     @Order(6)
     void whenPostAccounts_thenStatus400() throws Exception {
-        accountRequest.setAgencyNumber(12345l);
+        accountRequest.setAgencyNumber(12345L);
         mockMvc.perform(post("/accounts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(accountRequest)))
@@ -122,7 +122,7 @@ class AccountsControllerTest {
     @Test
     @Order(7)
     void whenPutAccountsById_thenStatus400() throws Exception {
-        accountRequest.setAccountNumber(12345l);
+        accountRequest.setAccountNumber(12345L);
         mockMvc.perform(put("/accounts/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(accountRequest)))
@@ -134,8 +134,8 @@ class AccountsControllerTest {
     @Test
     @Order(8)
     void whenPostAccounts_thenStatus404() throws Exception {
-        accountRequest.setClientId(2l);
-        accountRequest.setAgencyNumber(1234l);
+        accountRequest.setClientId(2L);
+        accountRequest.setAgencyNumber(1234L);
         mockMvc.perform(post("/accounts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(accountRequest)))
@@ -177,7 +177,7 @@ class AccountsControllerTest {
     void whenPutAccountsById_thenStatus404() throws Exception {
         mockMvc.perform(put("/accounts/{id}", 100)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(accountRequestUpdate)))
+                        .content(objectMapper.writeValueAsString(accountUpdateRequest)))
                 .andExpect(status().isNotFound())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

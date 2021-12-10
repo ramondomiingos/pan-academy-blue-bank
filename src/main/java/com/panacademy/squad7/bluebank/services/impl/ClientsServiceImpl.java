@@ -10,11 +10,12 @@ import com.panacademy.squad7.bluebank.services.ClientsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ClientsServiceImpl implements ClientsService {
-    public static final String NOT_FOUND_MESSAGE ="client not found with id ";
+    public static final String NOT_FOUND_MESSAGE = "client not found with id ";
     private final ClientsRepository clientsRepository;
     private final AccountsRepository accountsRepository;
 
@@ -35,27 +36,36 @@ public class ClientsServiceImpl implements ClientsService {
             client.setId(id);
             client.setRegistration(c.getRegistration());
             return clientsRepository.save(client);
-        }).orElseThrow(() -> new ContentNotFoundException( NOT_FOUND_MESSAGE + id));
+        }).orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override
     public void softDelete(Long id) {
-        clientsRepository.findById(id).map(client -> {
-            client.setStatus(StatusType.C);
-            List<Account> accounts = client.getAccounts();
-            accounts.forEach(account ->{ account.setStatus(StatusType.C);
+        Optional<Client> client = clientsRepository.findById(id);
+        if (client.isPresent()) {
+            Client c = client.get();
+            c.setStatus(StatusType.C);
+            List<Account> accounts = c.getAccounts();
+            accounts.forEach(account -> {
+                account.setStatus(StatusType.C);
                 accountsRepository.save(account);
             });
-            return clientsRepository.save(client);
-        }).orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
+            clientsRepository.save(c);
+        } else {
+            throw new ContentNotFoundException(NOT_FOUND_MESSAGE + id);
+        }
     }
 
     @Override
     public void softBlock(Long id) {
-        clientsRepository.findById(id).map(client -> {
-            client.setStatus(StatusType.B);
-            return clientsRepository.save(client);
-        }).orElseThrow(() -> new ContentNotFoundException(NOT_FOUND_MESSAGE + id));
+        Optional<Client> client = clientsRepository.findById(id);
+        if (client.isPresent()) {
+            Client c = client.get();
+            c.setStatus(StatusType.B);
+            clientsRepository.save(c);
+        } else {
+            throw new ContentNotFoundException(NOT_FOUND_MESSAGE + id);
+        }
     }
 
     @Override
