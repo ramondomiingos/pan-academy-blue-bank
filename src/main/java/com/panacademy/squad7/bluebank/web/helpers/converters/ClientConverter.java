@@ -1,5 +1,6 @@
 package com.panacademy.squad7.bluebank.web.helpers.converters;
 
+import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.web.dtos.request.ClientRequest;
 import com.panacademy.squad7.bluebank.web.dtos.response.ClientResponse;
@@ -28,6 +29,7 @@ public class ClientConverter {
                 .email(client.getEmail())
                 .phone(client.getPhone())
                 .cellphone(client.getCellphone())
+                .status(client.getStatus())
                 .type(client.getType())
                 .userId(client.getUser() != null ? client.getUser().getId() : null)
                 .addressId(client.getAddress() != null ? client.getAddress().getId() : null)
@@ -48,6 +50,7 @@ public class ClientConverter {
                 .email(clientRequest.getEmail())
                 .phone(clientRequest.getPhone())
                 .cellphone(clientRequest.getCellphone())
+                .status(clientRequest.getStatus() != null ? clientRequest.getStatus() : StatusType.A)
                 .type(clientRequest.getType())
                 .registration(clientRequest.getRegistration())
                 .build();

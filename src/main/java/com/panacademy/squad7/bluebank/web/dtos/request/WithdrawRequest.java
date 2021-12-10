@@ -2,14 +2,20 @@ package com.panacademy.squad7.bluebank.web.dtos.request;
 
 import com.panacademy.squad7.bluebank.domain.enums.TransactionType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class WithdrawRequest {
 
     @Positive(message = "amount must not be negative")

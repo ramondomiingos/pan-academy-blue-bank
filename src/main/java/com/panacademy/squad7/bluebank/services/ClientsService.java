@@ -1,17 +1,19 @@
 package com.panacademy.squad7.bluebank.services;
 
-import java.util.List;
-
 import com.panacademy.squad7.bluebank.domain.models.Client;
+
+import java.util.List;
 
 public interface ClientsService {
 
-	Client create(Client client);
+    Client create(Client client);
 
     Client update(Client client, Long id);
 
-    void delete(Long id);
-    
+    void softDelete(Long id);
+
+    void softBlock(Long id);
+
     Client findById(Long id);
 
     List<Client> findAll();

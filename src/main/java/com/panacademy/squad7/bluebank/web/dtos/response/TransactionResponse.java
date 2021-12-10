@@ -1,14 +1,16 @@
 package com.panacademy.squad7.bluebank.web.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 @Builder
+@AllArgsConstructor
 public class TransactionResponse {
 
     private Long id;

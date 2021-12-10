@@ -1,13 +1,20 @@
 package com.panacademy.squad7.bluebank.web.dtos.request;
 
+import com.panacademy.squad7.bluebank.domain.enums.AccountType;
 import com.panacademy.squad7.bluebank.domain.enums.TransactionType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransferRequest {
 
     @Min(value = 1, message = "agencyNumber must be different from 0")
@@ -22,6 +29,10 @@ public class TransferRequest {
     @Schema(example = "0")
     @NotNull(message = "accountDigit must not be null")
     private Character accountDigit;
+
+    @NotNull(message = "type must not be null")
+    @Schema(enumAsRef = true)
+    private AccountType accountType;
 
     @Positive(message = "amount must not be negative")
     @DecimalMin(value = "0.01", message = "the amount value must be greater than 0.01")

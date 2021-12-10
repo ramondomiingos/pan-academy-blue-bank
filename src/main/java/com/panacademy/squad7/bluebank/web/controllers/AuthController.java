@@ -28,10 +28,10 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    AuthConverter authConverter;
+    private AuthConverter authConverter;
 
     @PostMapping("/login")
     @Operation(summary = "Login into application", responses = {

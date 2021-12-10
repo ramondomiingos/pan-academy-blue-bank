@@ -1,6 +1,7 @@
 package com.panacademy.squad7.bluebank.web.helpers.converters;
 
 
+import com.panacademy.squad7.bluebank.domain.enums.StatusType;
 import com.panacademy.squad7.bluebank.domain.models.Account;
 import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.web.dtos.request.AccountRequest;
@@ -8,6 +9,7 @@ import com.panacademy.squad7.bluebank.web.dtos.response.AccountResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,11 +46,11 @@ public class AccountConverter {
     public Account toModel(AccountRequest accountRequest) {
         return Account.builder()
                 .agencyNumber(accountRequest.getAgencyNumber())
-                .accountNumber(accountRequest.getAccountNumber())
-                .accountDigit(accountRequest.getAccountDigit())
-                .balance(accountRequest.getBalance())
+                .accountNumber(accountRequest.getAccountNumber() != null ? accountRequest.getAccountNumber() : null)
+                .accountDigit(accountRequest.getAccountDigit() != null ? accountRequest.getAccountDigit() : '0')
+                .balance(accountRequest.getBalance() != null ? accountRequest.getBalance() : BigDecimal.valueOf(0))
                 .type(accountRequest.getType())
-                .status(accountRequest.getStatus())
+                .status(accountRequest.getStatus() != null ? accountRequest.getStatus() : StatusType.A)
                 .client(
                         accountRequest.getClientId() != null
                                 ? Client.builder().id(accountRequest.getClientId()).build()

@@ -35,8 +35,8 @@ public class TransactionsServiceImpl implements TransactionsService {
     @Override
     public Transaction withdraw(Transaction transaction) {
         Account originAccount = transaction.getOriginAccount();
-        if (originAccount.getBalance().compareTo(transaction.getAmount()) < 0) {
-            throw new InvalidInputException("the account " + originAccount.getAccountNumber() + " does not have enough balance");
+        if (originAccount.getBalance().compareTo(transaction.getAmount()) <= 0) {
+            throw new InvalidInputException("the " + originAccount.getType() + " account " + originAccount.getAccountNumber() + " does not have enough balance");
         }
         Transaction transactionSaved = transactionsRepository.save(transaction);
         originAccount.setBalance(originAccount.getBalance().subtract(transaction.getAmount()));
@@ -48,11 +48,11 @@ public class TransactionsServiceImpl implements TransactionsService {
     public Transaction transfer(Transaction transaction) {
         Account originAccount = transaction.getOriginAccount();
         Account destinationAccount = transaction.getDestinationAccount();
-        if (originAccount.getBalance().compareTo(transaction.getAmount()) < 0) {
-            throw new InvalidInputException("the origin account " + originAccount.getAccountNumber() + " does not have enough balance");
+        if (originAccount.getBalance().compareTo(transaction.getAmount()) <= 0) {
+            throw new InvalidInputException("the origin " + originAccount.getType() + " account " + originAccount.getAccountNumber() + " does not have enough balance");
         }
         if (!destinationAccount.getStatus().equals(StatusType.A)) {
-            throw new InvalidInputException("the destination account " + destinationAccount.getAccountNumber() + " is not active");
+            throw new InvalidInputException("the destination " + destinationAccount.getType() + " account " + destinationAccount.getAccountNumber() + " is not active");
         }
         Transaction transactionSaved = transactionsRepository.save(transaction);
         originAccount.setBalance(originAccount.getBalance().subtract(transaction.getAmount()));

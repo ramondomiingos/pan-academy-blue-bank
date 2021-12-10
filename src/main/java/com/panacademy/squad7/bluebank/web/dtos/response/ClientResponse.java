@@ -2,14 +2,17 @@ package com.panacademy.squad7.bluebank.web.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.panacademy.squad7.bluebank.domain.enums.ClientType;
+import com.panacademy.squad7.bluebank.domain.enums.StatusType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Getter
 @Builder
+@AllArgsConstructor
 public class ClientResponse {
 
     private Long id;
@@ -27,6 +30,8 @@ public class ClientResponse {
     private String phone;
 
     private String cellphone;
+
+    private StatusType status;
 
     private ClientType type;
 
