@@ -34,8 +34,11 @@ class AddressesControllerTests {
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
         addressRequest = new AddressRequest();
-        addressRequest.setAddress("Avenida Paulista");
+        addressRequest.setStreet("Avenida Paulista");
         addressRequest.setNumber("1001");
+        addressRequest.setDetails("Sala 01");
+        addressRequest.setNeighborhood("Paulista");
+        addressRequest.setZip("15370496");
         addressRequest.setCity("São Paulo");
         addressRequest.setState("SP");
         addressRequest.setClientId(1L);
@@ -80,14 +83,14 @@ class AddressesControllerTests {
     @Test
     @Order(4)
     void whenPutAddresses_thenStatus201() throws Exception {
-        addressRequest.setAddress("Avenida Rio de Janeiro");
+        addressRequest.setStreet("Avenida Rio de Janeiro");
         mockMvc.perform(put("/addresses/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(addressRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.address").value("Avenida Rio de Janeiro"));
+                .andExpect(jsonPath("$.street").value("Avenida Rio de Janeiro"));
     }
 
     @Test
@@ -135,7 +138,7 @@ class AddressesControllerTests {
     @Test
     @Order(8)
     void whenPutAddresses_thenStatus404() throws Exception {
-        addressRequest.setAddress("Avenida Brasília");
+        addressRequest.setStreet("Avenida Brasília");
         addressRequest.setClientId(1L);
         mockMvc.perform(put("/addresses/{id}", 100)
                         .contentType(MediaType.APPLICATION_JSON)

@@ -16,9 +16,18 @@ import javax.validation.constraints.Size;
 public class AddressRequest {
 
     @NotBlank(message = "address must not be blank")
-    private String address;
+    private String street;
 
     private String number;
+
+    private String details;
+
+    @NotBlank(message = "neighborhood must not be blank")
+    private String neighborhood;
+
+    @NotBlank(message = "zip must not be blank")
+    @Size(min = 8, max = 8, message = "zip must be 8 characters")
+    private String zip;
 
     @NotBlank(message = "city must not be blank")
     @Size(max = 30, message = "city must have a maximum of 30 characters")

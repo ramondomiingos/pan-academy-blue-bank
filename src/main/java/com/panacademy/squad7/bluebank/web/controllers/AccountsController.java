@@ -2,7 +2,6 @@ package com.panacademy.squad7.bluebank.web.controllers;
 
 import com.panacademy.squad7.bluebank.domain.models.Account;
 import com.panacademy.squad7.bluebank.services.AccountsService;
-import com.panacademy.squad7.bluebank.services.ClientsService;
 import com.panacademy.squad7.bluebank.web.dtos.request.AccountRequest;
 import com.panacademy.squad7.bluebank.web.dtos.request.AccountUpdateRequest;
 import com.panacademy.squad7.bluebank.web.dtos.response.AccountResponse;
@@ -31,9 +30,6 @@ public class AccountsController {
     private AccountsService accountsService;
 
     @Autowired
-    private ClientsService clientsService;
-
-    @Autowired
     private AccountConverter accountConverter;
 
     @PostMapping
@@ -43,12 +39,7 @@ public class AccountsController {
             @ApiResponse(responseCode = "404", description = "Client Not Found", content = @Content())
     })
     public ResponseEntity<AccountResponse> create(@Valid @RequestBody AccountRequest accountRequest) {
-        Long accountNumber = accountsService
-                .findMaxAccountNumberByAgencyNumberAndType(accountRequest.getAgencyNumber(), accountRequest.getType());
-        accountRequest.setAccountNumber(accountNumber + 1);
-
         Account account = accountConverter.toModel(accountRequest);
-        account.setClient(clientsService.findById(accountRequest.getClientId()));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(accountConverter.toResponse(accountsService.create(account)));
@@ -94,14 +85,12 @@ public class AccountsController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-
     @PutMapping("/{id}")
     @Operation(summary = "Update an account", responses = {
             @ApiResponse(responseCode = "201", description = "Updated"),
             @ApiResponse(responseCode = "400", description = "Invalid Input", content = @Content()),
             @ApiResponse(responseCode = "404", description = "Account or Client Not Found", content = @Content())
     }, parameters = {@Parameter(name = "id", description = "Id of the account for search")})
-
     public ResponseEntity<AccountResponse> update(@PathVariable Long id, @Valid @RequestBody AccountUpdateRequest accountRequest) {
 
         Account account = accountsService.findById(id);

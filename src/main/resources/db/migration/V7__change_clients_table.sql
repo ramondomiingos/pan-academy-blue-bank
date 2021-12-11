@@ -1,0 +1,1 @@
+ALTER TABLE `clients` CHANGE `mother_name` `mother_name` VARCHAR(255) NULL;
