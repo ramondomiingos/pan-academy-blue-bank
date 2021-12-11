@@ -33,7 +33,6 @@ public class ClientRequest {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @NotBlank(message = "motherName must not be blank")
     private String motherName;
 
     @NotBlank(message = "email must not be blank")

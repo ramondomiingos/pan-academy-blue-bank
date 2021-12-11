@@ -209,6 +209,7 @@ class ClientsControllerTests {
             clientRequest.setPhone("11867543217");
             clientRequest.setEmail("fulano_emp@email.com");
             clientRequest.setRegistration("07045281000148");
+            clientRequest.setMotherName(null);
             mockMvc.perform(post("/clients")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(clientRequest)))

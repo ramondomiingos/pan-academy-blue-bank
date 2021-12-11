@@ -30,7 +30,7 @@ public class Client {
     @Column(nullable = false, name = "birth_date")
     private LocalDate birthDate;
 
-    @Column(nullable = false, name = "mother_name")
+    @Column(name = "mother_name")
     private String motherName;
 
     @Column(nullable = false, unique = true)
