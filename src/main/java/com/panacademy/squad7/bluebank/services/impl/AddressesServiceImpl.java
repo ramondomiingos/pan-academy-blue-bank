@@ -57,7 +57,6 @@ public class AddressesServiceImpl implements AddressesService {
     @Override
     public Address isValidAddress(Address address) {
         Long clientId = address.getClient().getId();
-        System.out.println("isValid");
         Optional<Address> optionalAddress = addressesRepository.findByClientId(clientId);
         if (optionalAddress.isPresent()) {
             if (!optionalAddress.get().getId().equals(address.getId())) {
