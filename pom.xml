@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.panacademy.squad7</groupId>
     <artifactId>blue-bank</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>blue-bank</name>
     <description>blue-bank</description>
     <properties>
