@@ -76,7 +76,7 @@ mvn clean install
 
 ## 🌐 Endpoints
 📄  As urls interativas, construídas através do [Swagger](https://swagger.io/tools/swagger-ui/), pode ser acessadas no link:
-[http://t2s7bluebank-env-1.eba-fxsrpnfb.us-east-1.elasticbeanstalk.com/](http://t2s7bluebank-env-1.eba-fxsrpnfb.us-east-1.elasticbeanstalk.com/)
+[http://t2s7bluebank.us-east-1.elasticbeanstalk.com/](http://t2s7bluebank.us-east-1.elasticbeanstalk.com/)
 
 | Método | URL        | Finalidade       |   
 |--------|------------|------------------|
