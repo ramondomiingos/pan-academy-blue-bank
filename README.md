@@ -125,7 +125,8 @@ Aplicação EBS: http://t2s7bluebank.us-east-1.elasticbeanstalk.com/
 
 Aplicaçao EC2: http://ec2-54-175-137-20.compute-1.amazonaws.com:5005
 
-API Gateway: https://console.aws.amazon.com/apigateway/home?region=us-east-1#/apis/pzqujsr0ch/resources/er0o0zdtf8
+API Gateway (Configuração): https://console.aws.amazon.com/apigateway/home?region=us-east-1#/apis/pzqujsr0ch/resources/er0o0zdtf8
+API Gateway (Aplicação) : https://pzqujsr0ch.execute-api.us-east-1.amazonaws.com/final
 
 Lambda: https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions/t2-s7-details-blue-bank
 
