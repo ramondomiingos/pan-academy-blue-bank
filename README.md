@@ -74,6 +74,68 @@ mvn spring-boot:run
 mvn clean install
 ```
 
+## Metodologias ágeis e DevOps
+
+Com o objetivo de integras contínuas de pequenas partes usáveis,optamos usar o [Scrum](https://www.atlassian.com/br/agile/scrum), para termos um feedback do que estava ficando pronto, no caso do projeto o cliente final, que avaliava e gerava feedbacks, para criação de novas features eramos nós mesmo da equipe. E visando um fluxo de entrega otimizado, adotamos práticas do DevOps, que serão expostos nos próximos tópicos, como fizemos cada etapa:
+<p align="center">
+    <img align="center" width="300" src="https://www.agitma.nl/wp/wp-content/uploads/2019/12/devops_scrum.png" style="max-width:100%;">
+</p>
+
+
+- Plan 
+
+Após identificar todas os atores, funções que possuíamos, começamos a modelas a primeira versão do banco de dados. Usamos o Jira, organizando épicos, que eram as pequenas partes entregáveis e dentro delas as tasks, com extimativas de horas a a serem gastas, e responsáveis, possíveis impedimentos.
+
+- Code
+
+Utilizamos Java 11, SpringBoot, Mysql e docker, para termos como subir um ambiente totalmente configurado facilmente. Em seguida adicionamos o [FlyWay](https://flywaydb.org/) para termos liberdade em mudar algo do banco de dados de maneira fácil, como o scrum permite.
+
+Precisamos adicionar os serviços da [AWS lambda](https://aws.amazon.com/pt/lambda/),  [AWS SNS](https://aws.amazon.com/pt/sns/), para notificações de transações.Utilizamos o [AWS RDS](https://aws.amazon.com/pt/rds/)  como serviço do banco de dados.
+
+Optmaos para usar variáveis de ambiente para armazenamento de credenciais, aqui no github disponibilizado através do  [secrets](https://docs.github.com/pt/actions/security-guides/encrypted-secrets) 
+- Build
+
+Utilizamos o maven, e o [GitHubActions](https://github.com/features/actions) para realizar o o deploy de nossa aplicação.
+- Test
+
+
+A aplicação possui [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ramondomiingos_pan-academy-blue-bank&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ramondomiingos_pan-academy-blue-bank) de cobertura de código, optamos por testar a camada mais alta da aplicação, os controllers, para também atingir as camadas inferiores, como os services e os repositorys.
+
+- Release
+
+Lançamos 3 versões, onde  0.0.1, ja contemplava entregáveis como as operações básicas, em seguida a 0.1.0 ja possuia a integração com a [AWS lambda](https://aws.amazon.com/pt/lambda/),  [AWS SNS](https://aws.amazon.com/pt/sns/), validações com [sonarCloud](https://sonarcloud.io/project/overview?id=ramondomiingos_pan-academy-blue-bank), e por último, a 1.0.0 com testes cobrindo 81% da aplicação, poucos code smell. 
+- Deploy
+
+Por questões de segurança na hora da apresentação, resolvemos subir com o [beanstalk](https://aws.amazon.com/pt/elasticbeanstalk/) , com o [ec2](https://aws.amazon.com/pt/ec2/), 
+uma aplicação no [Heroku](https://www.heroku.com/), e configuramos um [API  Gateway](https://aws.amazon.com/pt/api-gateway/),para centralizar as url do beanstalk e lambda.
+
+- Operate
+
+Links úteis da aplicação: 
+
+**Repositórios**
+
+Projeto:  https://github.com/ramondomiingos/pan-academy-blue-bank
+
+Repositório do Lambda: https://github.com/iasminaraujoc/lambda-blue-bank
+
+**Aplicações**
+
+Aplicação EBS: http://t2s7bluebank.us-east-1.elasticbeanstalk.com/
+
+Aplicaçao EC2: http://ec2-54-175-137-20.compute-1.amazonaws.com:5005
+
+API Gateway: https://console.aws.amazon.com/apigateway/home?region=us-east-1#/apis/pzqujsr0ch/resources/er0o0zdtf8
+
+Lambda: https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions/t2-s7-details-blue-bank
+
+**Organização**
+
+Sonar: https://sonarcloud.io/project/overview?id=ramondomiingos_pan-academy-blue-bank
+
+Jira: https://prf12.atlassian.net/jira/software/projects/BLUEB7/boards/2 
+
+
 ## 🌐 Endpoints
 📄  As urls interativas, construídas através do [Swagger](https://swagger.io/tools/swagger-ui/), pode ser acessadas no link:
 [http://t2s7bluebank.us-east-1.elasticbeanstalk.com/](http://t2s7bluebank.us-east-1.elasticbeanstalk.com/)
