@@ -84,7 +84,7 @@ Com o objetivo de integras contínuas de pequenas partes usáveis,optamos usar o
 
 - Plan 
 
-Após identificar todas os atores, funções que possuíamos, começamos a modelas a primeira versão do banco de dados. Usamos o Jira, organizando épicos, que eram as pequenas partes entregáveis e dentro delas as tasks, com extimativas de horas a a serem gastas, e responsáveis, possíveis impedimentos.
+Após identificar todas os atores, funções que possuíamos, começamos a modelar a primeira versão do banco de dados. Usamos o Jira, organizando épicos, que eram as pequenas partes entregáveis e dentro delas as tasks, com extimativas de horas a a serem gastas, e responsáveis, possíveis impedimentos.
 
 - Code
 
