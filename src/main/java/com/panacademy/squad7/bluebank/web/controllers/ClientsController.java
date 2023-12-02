@@ -1,6 +1,5 @@
 package com.panacademy.squad7.bluebank.web.controllers;
 
-import com.amazonaws.services.sns.AmazonSNSClient;
 import com.amazonaws.services.sns.model.SubscribeRequest;
 import com.panacademy.squad7.bluebank.domain.models.Client;
 import com.panacademy.squad7.bluebank.domain.models.User;
@@ -31,7 +30,6 @@ import java.util.List;
 @SecurityRequirement(name = "bearerAuth")
 public class ClientsController {
 
-    @Value("${bluebank.aws.topicArn}")
     private String TOPIC_ARN;
 
     @Autowired
@@ -46,8 +44,6 @@ public class ClientsController {
     @Autowired
     private UserConverter userConverter;
 
-    @Autowired
-    private AmazonSNSClient snsClient;
 
     @PostMapping
     @Operation(summary = "Add a new client", responses = {
@@ -61,7 +57,6 @@ public class ClientsController {
         user.setClient(client);
         client.setUser(usersService.create(user));
 
-        snsClient.subscribe(new SubscribeRequest(TOPIC_ARN, "email", clientRequest.getEmail()));
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

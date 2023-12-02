@@ -25,3 +25,4 @@ public class BlueBankApplication extends SpringBootServletInitializer {
     }
 
 }
+//flyway:migrate -Dflyway.url=jdbc:mysql://localhost:3306/blue_bank -Dflyway.user=root -Dflyway.password=
